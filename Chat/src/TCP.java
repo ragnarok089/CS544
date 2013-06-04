@@ -10,7 +10,12 @@ public class TCP implements Runnable {
     Thread t=null;
     ConcurrentLinkedQueue<Byte> queue=null;
     boolean active;
-        
+    int size=132;
+    int moreNeeded=0;
+    boolean needsMore=false;
+    byte[] current=null;
+    byte[] body=null;
+    Parser parser=new Parser();
     public TCP(){
     	queue=new ConcurrentLinkedQueue<Byte>();
     	tr=new TCPReceiverThread(queue);
@@ -62,18 +67,41 @@ public class TCP implements Runnable {
          return 0;
 	 }
 	
-	public byte[] read(){
-		//TODO implement reading the header figuring out packet size then reading the rest
-		if(queue.size()>size){
-			byte[] packet=new byte[size];
-			for(int i=0;i<size;i++){
-				packet[i]=queue.poll();
+	public Message read(){
+		if (!needsMore) {
+			if (queue.size() >= size) {
+				current = new byte[size];
+				for (int i = 0; i < size; i++) {
+					current[i] = queue.poll();
+				}
+				moreNeeded=parser.parse(current);
+				if(queue.size()>=moreNeeded){
+					for (int i = 0; i < moreNeeded; i++) {
+						body[i] = queue.poll();
+					}
+					needsMore=false;
+					return parser.addBody(body);
+				}
+				needsMore=true;
+				return null;
+			} else {
+				needsMore=true;
+				return null;
 			}
-			return packet;
 		}
-		else{
-			return new byte[0];
+		else if(queue.size()>=moreNeeded){
+			for (int i = 0; i < moreNeeded; i++) {
+				body[i] = queue.poll();
+			}
+			needsMore=false;
+			return parser.addBody(body);
 		}
+		needsMore=true;
+		return null;
+	}
+	
+	public String getIP(){
+		return tr.getIP();
 	}
 	
 	public void close() throws IOException{

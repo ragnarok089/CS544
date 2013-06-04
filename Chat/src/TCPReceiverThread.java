@@ -23,6 +23,9 @@ public class TCPReceiverThread implements Runnable {
 		}
 		return 0;
 	}
+	public String getIP(){
+		return socket.getInetAddress().getHostAddress();
+	}
 	public void run() {
 		byte[] packet=null;
 		while(running){

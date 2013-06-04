@@ -11,7 +11,7 @@ public class MainLoop {
 	static TCP tcp=new TCP();
 	static UDPReceiver ur;
 	static UDPSender us;
-	static State state=new Disconnected();
+	static CurrentState state=new CurrentState();
 	static State lastState=new Disconnected();
 	public static void main(String[] args) {
 		try {
@@ -26,19 +26,25 @@ public class MainLoop {
 		Thread irThread=new Thread(ir);
 		irThread.start();
 		Date timeEnteredState=new Date();
-		String udpMessage="";
-		String tcpMessage="";
+		Message udpMessage=null;
+		Message tcpMessage=null;
 		while(!error && !done){
-			if(state.getClass()!=lastState.getClass()){
+			if(state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=new Date();
 			}
 			System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();
-			byte[] packet=ur.getPacket();
-			udpMessage=new String(packet,0,packet.length);
-			packet=tcp.read();
-			tcpMessage=new String(packet,0,packet.length);
-			state=state.process(tcpMessage, tcp, us, udpMessage, tcpMessage, timeEnteredState);
+			if (input.equals("")) {
+				udpMessage = ur.read();
+				if(udpMessage==null){
+					tcpMessage = tcp.read();
+					if(tcpMessage==null){
+						lastState = state.getState();
+					}
+				}
+				
+			}
+			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
 		}
 		ir.stop();
 		try {

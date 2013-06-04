@@ -31,8 +31,8 @@ public class UDPSender {
 		System.out.println(broadcast.toString());
 	}
 	
-	public void sendMessage(String message) throws IOException{
-		byte[] buffer=message.getBytes();
+	public void sendMessage(Message message) throws IOException{
+		byte[] buffer=message.convert();
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length,ip,12346);
 		socket.send(packet);
 		System.out.println(new String(packet.getData(),0,packet.getLength()));
