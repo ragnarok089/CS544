@@ -1,20 +1,20 @@
 package chat;
 
-public class UDPBroadcastMessage extends Message {
+public class ClientHandShakeMessage extends Message {
 	String senderUsername=null;
 	String targetUsername=null;
 	String senderIP=null;
-        
+
 	public static final long minSize=260;
         
-	public UDPBroadcastMessage(int _op,long _length,long _reserved,String _options,byte[] body){
+	public ClientHandShakeMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
 		if(op!=1){
 			correct=false;
 		}
 	}
-	public UDPBroadcastMessage(int _op,long _length,long _reserved,String _options,String _senderUsername,String _targetUsername,String _senderIP){
+	public ClientHandShakeMessage(int _op,long _length,long _reserved,String _options,String _senderUsername,String _targetUsername,String _senderIP){
 		super(_op,_length,_reserved,_options);
 		senderUsername=_senderUsername;
 		targetUsername= _targetUsername;
@@ -23,8 +23,8 @@ public class UDPBroadcastMessage extends Message {
 			correct=false;
 		}
 	}
-        
-	private void processBody(byte[] body){
+
+        private void processBody(byte[] body){
 		if(body.length!=260){
 			correct=false;
 			return;
