@@ -18,7 +18,7 @@ public class ServerQuery extends State{
 			System.out.println("There is no binding on the server for that name");
 			return new ConnectedServer();
 		} else if (tcpMessage is instanceof ServerSendsInfo) {
-			System.out.println("Your name has been sucessfully bound");
+			System.out.println("The IP address of that name is: "+((ServerSendsInfo)tcpMessage).ip);
 			return new ConnectedServer();
 		} else {
 			return this;
