@@ -9,22 +9,26 @@ public class TCP implements Runnable {
     TCPReceiverThread tr=null;
     Thread t=null;
     ConcurrentLinkedQueue<Byte> queue=null;
-    boolean active;
+    protected boolean active;
     int size=132;
     int moreNeeded=0;
     boolean needsMore=false;
     byte[] current=null;
     byte[] body=null;
     Parser parser=new Parser();
+    
     public TCP(){
     	queue=new ConcurrentLinkedQueue<Byte>();
     	tr=new TCPReceiverThread(queue);
+    }
+    public boolean getActive(){
+    	return active && !socket.isClosed();
     }
 	public void run(){
 		try{
 		 ServerSocket serverSocket = new ServerSocket(12345);
          Socket socket2 = serverSocket.accept();
-         if(!active){
+         if(!getActive()){
         	 socket=socket2;
              clientInputStream = new PushbackInputStream(socket.getInputStream());
              active=true;
@@ -43,7 +47,7 @@ public class TCP implements Runnable {
 	
 	public int connect(String target){
 		try {
-			if(active){
+			if(getActive()){
 				return -1;
 			}
 			socket = new Socket(target, 12345);

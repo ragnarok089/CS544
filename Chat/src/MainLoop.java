@@ -1,5 +1,6 @@
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -25,12 +26,12 @@ public class MainLoop {
 		tcpListen.start();
 		Thread irThread=new Thread(ir);
 		irThread.start();
-		Date timeEnteredState=new Date();
+		long timeEnteredState=System.currentTimeMillis();
 		Message udpMessage=null;
 		Message tcpMessage=null;
 		while(!error && !done){
 			if(state.getState().getClass()!=lastState.getClass()){
-				timeEnteredState=new Date();
+				timeEnteredState=System.currentTimeMillis();
 			}
 			System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();

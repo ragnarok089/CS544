@@ -6,7 +6,7 @@ public class CurrentState {
 	public void setup(){
 		state= new Disconnected();
 	}
-	public void process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,Date timeEnteredState){
+	public void process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 		state=state.process(input, tcp, us, udpMessage, tcpMessage, timeEnteredState);
 	}
 	

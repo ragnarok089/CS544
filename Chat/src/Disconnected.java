@@ -3,9 +3,9 @@ import java.util.Date;
 
 
 public class Disconnected extends State {
-	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,Date timeEnteredState){
+	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 	
-		if(tcp.active==true){
+		if(tcp.getActive()==true){
 			return new Connected();
 		}
 		else if(input.startsWith(":ip")){
@@ -16,8 +16,7 @@ public class Disconnected extends State {
 		}
 		else if(input.startsWith(":local")){
 			try {
-				User user=new User();
-				String senderUsername=user.getUserName();
+				String senderUsername=User.getUserName();
 				String targetUsername=input.substring(7);
 				String ip=tcp.getIP();
 				UDPBroadcastMessage message=new UDPBroadcastMessage(1,(long)144,(long)0,"",senderUsername,targetUsername,ip);
@@ -28,7 +27,8 @@ public class Disconnected extends State {
 		else if(udpMessage!=null){
 			if(udpMessage instanceof UDPBroadcastMessage){
 				UDPBroadcastMessage m=(UDPBroadcastMessage)udpMessage;
-				if(m.correct){
+				if(m.correct && m.targetUsername.equals(User.userName)){
+					System.out.println("Received a broadcast with your username and calling them back");
 					tcp.connect(m.senderIP);
 				}
 			}
