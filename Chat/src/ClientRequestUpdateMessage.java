@@ -8,14 +8,14 @@ public class ClientRequestUpdateMessage extends Message {
 	public ClientRequestUpdateMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
-		if(op!=1){
+		if(op!=6){
 			correct=false;
 		}
 	}
 	public ClientRequestUpdateMessage(int _op,long _length,long _reserved,String _options,String _senderUsername){
 		super(_op,_length,_reserved,_options);
 		senderUsername=_senderUsername;
-		if(op!=1){
+		if(op!=6){
 			correct=false;
 		}
 	}

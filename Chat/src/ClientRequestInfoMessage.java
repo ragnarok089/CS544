@@ -10,7 +10,7 @@ public class ClientRequestInfoMessage extends Message {
 	public ClientRequestInfoMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
-		if(op!=1){
+		if(op!=8){
 			correct=false;
 		}
 	}
@@ -19,7 +19,7 @@ public class ClientRequestInfoMessage extends Message {
 		senderUsername=_senderUsername;
 		targetUsername= _targetUsername;
 		senderIP=_senderIP;
-		if(op!=1){
+		if(op!=8){
 			correct=false;
 		}
 	}

@@ -10,7 +10,7 @@ public class ServerHandShakeMessage extends Message {
 	public ServerHandShakeMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
-		if(op!=1){
+		if(op!=2){
 			correct=false;
 		}
 	}
@@ -19,7 +19,7 @@ public class ServerHandShakeMessage extends Message {
 		senderUsername=_senderUsername;
 		targetUsername= _targetUsername;
 		senderIP=_senderIP;
-		if(op!=1){
+		if(op!=2){
 			correct=false;
 		}
 	}

@@ -8,14 +8,14 @@ public class NameCollisionMessage extends Message {
 	public NameCollisionMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
-		if(op!=1){
+		if(op!=14){
 			correct=false;
 		}
 	}
 	public NameCollisionMessage(int _op,long _length,long _reserved,String _options,String _targetUsername){
 		super(_op,_length,_reserved,_options);
 		targetUsername= _targetUsername;
-		if(op!=1){
+		if(op!=14){
 			correct=false;
 		}
 	}

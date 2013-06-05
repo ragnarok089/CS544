@@ -7,14 +7,14 @@ public class ChatMsgMessage extends Message {
 	public ChatMsgMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
-		if(op!=1){
+		if(op!=11){
 			correct=false;
 		}
 	}
 	public ChatMsgMessage(int _op,long _length,long _reserved,String _options,String _messages){
 		super(_op,_length,_reserved,_options);
 		messages=_messages;
-		if(op!=1){
+		if(op!=11){
 			correct=false;
 		}
 	}
