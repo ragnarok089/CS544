@@ -1,6 +1,7 @@
 package States;
 import Communications.*;
 import Messages.*;
+import Utilities.User;
 
 
 
@@ -13,20 +14,36 @@ public class Connected extends State {
 			return new Disconnected();
 		}
 		else if(input.startsWith(":server")){
-			//send server handshake
+			tcp.send(new ServerHandShakeMessage(2,ServerHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeServer();
 		}
 		else if(input.startsWith(":client")){
-			//send client handshake
+			tcp.send(new ClientHandShakeMessage(3,ClientHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeClient();
 		}
-		else if(input.startsWith(":exit")){
+		else if(input.startsWith(":")){
+			System.out.println("Invalid command");
+			return this;
+		}
+		else if(!input.equals("")){
+			System.out.println("You cannot chat yet");
+			return this;
+		}
+		else if (tcpMessage instanceof ClientHandShakeMessage && tcpMessage.getCorrect()) {
+			add new waiting for decision on connection state;
+			return new ;
+		} 
+		else if (tcpMessage instanceof ServerHandShakeMessage && tcpMessage.getCorrect()) {
+			System.out.println("The person who connected to you thinks you're a server.\nDisconnecting");
 			try{
 				tcp.close();
 			}
 			catch(Exception e){}
-			System.out.println("Disconnecting");
 			return new Disconnected();
+		}
+		else if (tcpMessage != null) {
+			tcp.send(new ErrorMessage(13,Message.minSize,0,"",new byte[0]));
+			return this;
 		}
 		else{
 			return this;

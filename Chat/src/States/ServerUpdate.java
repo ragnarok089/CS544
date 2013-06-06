@@ -1,7 +1,5 @@
 package States;
 
-import java.io.IOException;
-
 import Communications.*;
 import Messages.*;
 
@@ -11,21 +9,28 @@ public class ServerUpdate extends State {
 		if (tcp.getActive() == false) {
 			System.out.println("Server disconnected");
 			return new Disconnected();
-			
-		} else if (input.startsWith(":exit")) {
-			try {
-				tcp.close();
-			} catch (IOException e) {
-			}
-			System.out.println("Disconnecting");
-			return new Disconnected();
-		} else if (tcpMessage instanceof NameCollisionMessage && tcpMessage.getCorrect()) {
+		} 
+		else if (tcpMessage instanceof NameCollisionMessage && tcpMessage.getCorrect()) {
 			System.out.println("There is already a binding on the server for your name");
 			return new ConnectedServer();
-		} else if (tcpMessage instanceof ServerConfirmationUpdateMessage && tcpMessage.getCorrect()) {
+		} 
+		else if (tcpMessage instanceof ServerConfirmationUpdateMessage && tcpMessage.getCorrect()) {
 			System.out.println("Your name has been sucessfully bound");
 			return new ConnectedServer();
-		} else {
+		} 
+		else if(tcpMessage!=null){
+			tcp.send(new ErrorMessage(13,Message.minSize,0,"", new byte[0]));
+			return this;
+		}
+		else if(input.startsWith(":")){
+			System.out.println("Inavlid command");
+			return this;
+		}
+		else if(!input.equals("")){
+			System.out.println("You cannot chat in this state");
+			return this;
+		}
+		else {
 			return this;
 		}
 	}

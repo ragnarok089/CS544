@@ -32,6 +32,7 @@ public class ServerMainLoop {
 				try {
 					tcp.close();
 				} catch (IOException e) {}
+				System.out.println("Disconnecting");
 				state.state=new ServerDisconnected();
 			}
 			else if(input.equals("")){
