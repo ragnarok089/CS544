@@ -28,8 +28,8 @@ public class InputReader implements Runnable {
 	
 	public void run() {
 		while(!done){
-			if(sc.hasNext()){
-				ready=sc.next();
+			if(sc.hasNextLine()){
+				ready=sc.nextLine();
 			}
 			else{
 				try {
