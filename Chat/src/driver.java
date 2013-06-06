@@ -1,11 +1,13 @@
-import java.io.IOException;
+/*import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Scanner;
+import java.util.Scanner;*/
 
 
 public class driver {
-	static UDPReceiver in=null;
+	//unused
+	
+	/*static UDPReceiver in=null;
 	static UDPSender out =null;
 	static Scanner sc=new Scanner(System.in);
 	public static void main(String[] args) throws SocketException{
@@ -27,5 +29,5 @@ public class driver {
 			byte[] store=in.getPacket();
 			System.out.println(new String(store,0,store.length));
 		}
-	}
+	}*/
 }

@@ -1,7 +1,14 @@
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Calendar;
-import java.util.Date;
+
+import Communications.TCP;
+import Communications.UDPReceiver;
+import Communications.UDPSender;
+import Messages.Message;
+import States.Disconnected;
+import States.State;
+import Utilities.CurrentState;
+import Utilities.InputReader;
 
 
 public class MainLoop {
@@ -14,6 +21,8 @@ public class MainLoop {
 	static UDPSender us;
 	static CurrentState state=new CurrentState();
 	static State lastState=new Disconnected();
+	
+	
 	public static void main(String[] args) {
 		try {
 			ur=new UDPReceiver();
@@ -29,23 +38,28 @@ public class MainLoop {
 		long timeEnteredState=System.currentTimeMillis();
 		Message udpMessage=null;
 		Message tcpMessage=null;
+		
+		
 		while(!error && !done){
 			if(state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
 			System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();
-			if (input.equals("")) {
+			if(input.startsWith(":dc")){
+				state.state=new Disconnected();
+			}
+			else if(input.startsWith(":quit")){
+				done=true;
+			}
+			else if (input.equals("")) {
 				udpMessage = ur.read();
 				if(udpMessage==null){
 					tcpMessage = tcp.read();
-					if(tcpMessage==null){
-						lastState = state.getState();
-					}
-				}
-				
+				}		
 			}
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
+			lastState = state.getState();
 		}
 		ir.stop();
 		try {
