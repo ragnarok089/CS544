@@ -20,23 +20,23 @@ public class Parser {
 		options=new String(optArray,0,optArray.length);
 		switch(op){
 			case 1: //udp broadcast
-				return 12;
+				return (int) UDPBroadcastMessage.minSize;
 			case 2:// server handshake start
-				return 12;
+				return (int) ServerHandShakeMessage.minSize;
 			case 3:// client handshake start
-				return 12;
+				return (int) ClientHandShakeMessage.minSize;
 			case 4://server accept
 				return 0;
 			case 5://client accept
-				return 4;
+				return 0;
 			case 6://client request update
-				return 4;
+				return (int) ClientRequestUpdateMessage.minSize;
 			case 7://server confirmation of update
-				return 4;
+				return (int) ServerConfirmationUpdateMessage.minSize;
 			case 8://client request info from server
-				return 12;
+				return (int) ClientRequestInfoMessage.minSize;
 			case 9://server sends requested info
-				return 8;
+				return (int) ServerSendsInfoMessage.minSize;
 			case 10://Decline to connect Message
 				return 0;
 			case 11: //chat message
@@ -47,11 +47,11 @@ public class Parser {
 					return (int) (length-132);
 				}
 			case 12: //lookup failed
-				return 4;
+				return (int) LookupFailedMessage.minSize;
 			case 13://Error
 				return 0;
 			case 14://name collision
-				return 4;
+				return (int) NameCollisionMessage.minSize;
 			default:
 				return -1;
 		}

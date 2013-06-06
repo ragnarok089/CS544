@@ -21,6 +21,7 @@ public class TCP implements Runnable {
     byte[] current=null;
     byte[] body=null;
     Parser parser=new Parser();
+	public String pendingIP="";
     
     public TCP(){
     	queue=new ConcurrentLinkedQueue<Byte>();

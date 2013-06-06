@@ -2,7 +2,7 @@ package Messages;
 
 
 public class UDPBroadcastMessage extends Message {
-	String senderUsername=null;
+	public String senderUsername=null;
 	public String targetUsername=null;
 	public String senderIP=null;
         
