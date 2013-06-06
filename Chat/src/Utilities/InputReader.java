@@ -17,7 +17,9 @@ public class InputReader implements Runnable {
 	}
 	
 	public String getSubmitted(){
-		return ready;
+		String store=ready;
+		ready="";
+		return store;
 	}
 	
 	public void stop(){
