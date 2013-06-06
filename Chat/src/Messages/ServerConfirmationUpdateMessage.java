@@ -3,6 +3,7 @@ package Messages;
 
 public class ServerConfirmationUpdateMessage extends Message {
 	String confirmedUsername=null;
+	String senderIP = null;
        
 	public static final long minSize=128;
         
@@ -13,9 +14,10 @@ public class ServerConfirmationUpdateMessage extends Message {
 			correct=false;
 		}
 	}
-	public ServerConfirmationUpdateMessage(int _op,long _length,long _reserved,String _options,String _confirmedUsername){
+	public ServerConfirmationUpdateMessage(int _op,long _length,long _reserved,String _options,String _confirmedUsername,String _senderIP){
 		super(_op,_length,_reserved,_options);
 		confirmedUsername=_confirmedUsername;
+		senderIP = _senderIP;
 		if(op!=7){
 			correct=false;
 		}
@@ -32,6 +34,9 @@ public class ServerConfirmationUpdateMessage extends Message {
                 }
 		confirmedUsername=new String(confirmedUserArray,0,confirmedUserArray.length);
                 
+		byte [] senderIPArray=new byte[]{body[128],body[129],body[130],body[131]}; 
+		senderIP=new String(senderIPArray,0,senderIPArray.length);
+		
 	}
 	public byte[] convert(){
 		byte[] upper=super.convert();
@@ -51,6 +56,11 @@ public class ServerConfirmationUpdateMessage extends Message {
                 
 		total+=tmp.length;
                 
+		tmp=senderIP.getBytes();
+		for(int i=0;i<tmp.length;i++){
+			storage[total+i]=tmp[i];
+		}
+		
 		return storage;
 	}
 }

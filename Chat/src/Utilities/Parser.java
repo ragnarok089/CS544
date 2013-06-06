@@ -19,7 +19,6 @@ public class Parser {
 		byte[] optArray=new byte[message.length-4];
 		options=new String(optArray,0,optArray.length);
 		switch(op){
-		redo
 			case 1: //udp broadcast
 				return 12;
 			case 2:// server handshake start

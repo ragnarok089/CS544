@@ -3,7 +3,6 @@ package Messages;
 
 public class ServerHandShakeMessage extends Message {
 	String senderUsername=null;
-	String targetUsername=null;
 	String senderIP=null;
 
 	public static final long minSize=260;
@@ -15,10 +14,9 @@ public class ServerHandShakeMessage extends Message {
 			correct=false;
 		}
 	}
-	public ServerHandShakeMessage(int _op,long _length,long _reserved,String _options,String _senderUsername,String _targetUsername,String _senderIP){
+	public ServerHandShakeMessage(int _op,long _length,long _reserved,String _options,String _senderUsername,String _senderIP){
 		super(_op,_length,_reserved,_options);
 		senderUsername=_senderUsername;
-		targetUsername= _targetUsername;
 		senderIP=_senderIP;
 		if(op!=2){
 			correct=false;
@@ -39,12 +37,6 @@ public class ServerHandShakeMessage extends Message {
                 
 		byte [] senderIPArray=new byte[]{body[128],body[129],body[130],body[131]}; 
 		senderIP=new String(senderIPArray,0,senderIPArray.length);
-                
-                byte [] targetUserArray = new byte[128];
-                for (byte i = 0; i < body.length && i > 132; i++){
-                    targetUserArray[i] = body[i];
-                }
-		targetUsername=new String(targetUserArray,0,targetUserArray.length);
 		
 	}
         
@@ -70,14 +62,7 @@ public class ServerHandShakeMessage extends Message {
 		for(int i=0;i<tmp.length;i++){
 			storage[total+i]=tmp[i];
 		}
-                
-		total+=tmp.length;
-                
-                tmp=targetUsername.getBytes();
-                for(int i=0;i<tmp.length;i++){
-			storage[total+i]=tmp[i];
-		}
-                
+    
 		total+=tmp.length;
                 
 		return storage;

@@ -24,7 +24,7 @@ public class ServerConnected extends ServerState{
 		else if(tcpMessage instanceof ClientRequestUpdateMessage && tcpMessage.getCorrect()){
 			Message message = null;
 			String user=((ClientRequestUpdateMessage)tcpMessage).senderUsername;
-			String ip=((ClientRequestUpdateMessage)tcpMessage).ip;
+			String ip=((ClientRequestUpdateMessage)tcpMessage).senderIP;
 			if(LookupTable.lookup(user)!=null){
 				message=new NameCollisionMessage(14,NameCollisionMessage.minSize+Message.minSize,0,"",user);
 			}

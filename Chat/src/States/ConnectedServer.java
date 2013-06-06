@@ -22,11 +22,11 @@ public class ConnectedServer extends State {
 			if(input.length()-8>128 || input.substring(7).trim().equals("")){
 				System.out.println("Invalid username");
 			}
-			Message message=new ClientRequestUpdateMessage(6,input.substring(7).length(),0,"",input.substring(7)); error;
+			Message message=new ClientRequestUpdateMessage(6,input.substring(7).length(),0,"",input.substring(7).getBytes());
 			tcp.send(message);
 			return new ServerUpdate();
 		} else if (input.startsWith(":query")) {
-			Message message=new ClientRequestInfoMessage(6,input.substring(7).length(),0,"",input.substring(7));
+			Message message=new ClientRequestInfoMessage(6,input.substring(7).length(),0,"",input.substring(7).getBytes());
 			tcp.send(message);
 			return new ServerQuery();
 		} else {
