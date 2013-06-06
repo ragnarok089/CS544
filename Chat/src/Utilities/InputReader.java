@@ -33,7 +33,7 @@ public class InputReader implements Runnable {
 		while(!done){
 			if(sc.hasNext()){
 				String s=sc.next(p);
-				buffer.concat(s);
+				buffer=buffer.concat(s);
 				if(s.equals("\n")){
 					ready=buffer;
 					buffer="";

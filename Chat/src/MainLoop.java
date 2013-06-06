@@ -26,6 +26,7 @@ public class MainLoop {
 	
 	
 	public static void main(String[] args) {
+		state.setup();
 		try {
 			ur=new UDPReceiver();
 			us=new UDPSender();
@@ -42,7 +43,7 @@ public class MainLoop {
 		Message udpMessage=null;
 		Message tcpMessage=null;
 		while(!error && !done){
-			if(lastState==null||state.getState().getClass()!=lastState.getClass()){
+			if(lastState==null || state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
 			System.out.print("\r"+ir.getInput());
