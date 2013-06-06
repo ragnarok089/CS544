@@ -11,18 +11,18 @@ public class Waiting extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 		
 		if(tcp.getActive()==true){
-			System.out.println("Connection established");
+			System.out.println("\rConnection established");
 			return new Connected();
 		}
 		else if(input.startsWith(":exit")){
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("Disconnecting");
+			System.out.println("\rDisconnecting");
 			return new Disconnected();
 		}
 		else if(System.currentTimeMillis()-timeEnteredState>timeout){
-			System.out.println("Got no response");
+			System.out.println("\rGot no response");
 			return new Disconnected();
 		}
 		else{

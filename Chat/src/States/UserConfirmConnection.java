@@ -16,11 +16,11 @@ public class UserConfirmConnection extends State{
 			return new Disconnected();
 		}
 		else if(input.startsWith(":")){
-			System.out.println("Invalid command");
+			System.out.println("\rInvalid command");
 			return this;
 		}
 		else if(!input.equals("")){
-			System.out.println("You cannot chat in this state");
+			System.out.println("\rYou cannot chat in this state");
 			return this;
 		}
 		return this;

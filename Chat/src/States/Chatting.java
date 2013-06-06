@@ -9,7 +9,7 @@ public class Chatting extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 		
 		if(tcp.getActive()==false){
-			System.out.println("Other side disconnected");
+			System.out.println("\rOther side disconnected");
 			return new Disconnected();
 		}
 		else if(input.startsWith(":exit")){
@@ -17,7 +17,7 @@ public class Chatting extends State{
 				tcp.close();
 			}
 			catch(Exception e){}
-			System.out.println("Disconnecting");
+			System.out.println("\rDisconnecting");
 			return new Disconnected();
 		}
 		else if(!input.equals("")){
@@ -27,7 +27,7 @@ public class Chatting extends State{
 			return this;
 		}
 		else if(tcpMessage instanceof ChatMsgMessage && tcpMessage.getCorrect()){
-			System.out.println(((ChatMsgMessage)tcpMessage).messages);
+			System.out.println("\r"+((ChatMsgMessage)tcpMessage).messages);
 			return this;
 		}
 		else{

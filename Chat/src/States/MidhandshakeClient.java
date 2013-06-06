@@ -23,7 +23,7 @@ public class MidhandshakeClient extends State{
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("Disconnecting");
+			System.out.println("\rDisconnecting");
 			return new Disconnected();
 		}
 		else if(tcpMessage instanceof ClientAcceptMessage && tcpMessage.getCorrect()){
@@ -33,7 +33,7 @@ public class MidhandshakeClient extends State{
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("Expected a client response but got a server response");
+			System.out.println("\rExpected a client response but got a server response");
 			return new Disconnected();
 		}
 		else{

@@ -1,9 +1,11 @@
+import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import Communications.TCP;
 import Communications.UDPReceiver;
 import Communications.UDPSender;
+import Messages.ErrorMessage;
 import Messages.Message;
 import States.Disconnected;
 import States.State;
@@ -29,7 +31,7 @@ public class MainLoop {
 			us=new UDPSender();
 		} catch (SocketException | UnknownHostException e) {
 			System.out.println(e.getMessage());
-			System.out.println("Could not set up UDP socket");
+			System.out.println("\rCould not set up UDP socket");
 			System.exit(-1);
 		}
 		Thread tcpListen=new Thread(tcp);
@@ -49,14 +51,27 @@ public class MainLoop {
 			input=ir.getSubmitted();
 			if(input.startsWith(":dc")){
 				state.state=new Disconnected();
+				continue;
 			}
 			else if(input.startsWith(":quit")){
 				done=true;
+				try {
+					tcp.close();
+				} catch (IOException e) {}
+				continue;
 			}
 			else if (input.equals("")) {
 				udpMessage = ur.read();
 				if(udpMessage==null){
 					tcpMessage = tcp.read();
+					if(tcpMessage instanceof ErrorMessage && tcpMessage.getCorrect()){
+						System.out.println("\rAn error occured while communicating.\nDisconnecting");
+						try {
+							tcp.close();
+						} catch (IOException e) {}
+						state.state=new Disconnected();
+						continue;
+					}
 				}		
 			}
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);

@@ -1,7 +1,7 @@
 package Communications;
 import java.io.*;
 import java.net.*;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -11,7 +11,7 @@ public class UDPReceiverThread implements Runnable {
 		protected volatile boolean running;
 		
 		public UDPReceiverThread(ConcurrentLinkedQueue<Byte> queue) throws SocketException{
-			InetAddress broadcast = null;
+			/*InetAddress broadcast = null;
 			Enumeration<NetworkInterface> interfaces =NetworkInterface.getNetworkInterfaces();
 			while (interfaces.hasMoreElements()) {
 				NetworkInterface networkInterface = interfaces.nextElement();
@@ -27,13 +27,12 @@ public class UDPReceiverThread implements Runnable {
 				if(broadcast!=null || broadcast.toString().contains("192.168")){
 					break;
 				}
-			}
+			}*/
 			try {
-				socket = new DatagramSocket(12346,broadcast=InetAddress.getByName("0.0.0.0"));
+				socket = new DatagramSocket(12346,InetAddress.getByName("0.0.0.0"));
 			} catch (UnknownHostException e) {
-				System.out.println("failed");
+				System.out.println("\rFailed to create UDP receiver");
 			}
-			System.out.println(broadcast.toString());
 			socket.setSoTimeout(500);
 			out=queue;
 		}

@@ -15,13 +15,13 @@ public class Disconnected extends State {
 		}
 		else if(input.startsWith(":ip")){
 			if(0>tcp.connect(input.substring(4))){
-				System.out.println("Unable to connect to IP address");
+				System.out.println("\rUnable to connect to IP address");
 			}
 			return this;
 		}
 		else if(input.startsWith(":host")){
 			if(0>tcp.connect(input.substring(6))){
-				System.out.println("Unable to connect to IP address");
+				System.out.println("\rUnable to connect to IP address");
 			}
 			return this;
 		}
@@ -36,17 +36,17 @@ public class Disconnected extends State {
 			return new Waiting();
 		}
 		else if(input.startsWith(":")){
-			System.out.println("Invalid command");
+			System.out.println("\rInvalid command");
 			return this;
 		}
 		else if(!input.equals("")){
-			System.out.println("You cannot chat in this state");
+			System.out.println("\rYou cannot chat in this state");
 			return this;
 		}
 		else if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){
 				UDPBroadcastMessage m=(UDPBroadcastMessage)udpMessage;
 				if(m.getCorrect() && m.targetUsername.equals(User.userName)){
-					System.out.println("Received a broadcast with to your username from "+m.senderUsername+" at "+m.senderIP);
+					System.out.println("\rReceived a broadcast with to your username from "+m.senderUsername+" at "+m.senderIP);
 					tcp.pendingIP=m.senderIP;
 					return new UserConfirmCallback();
 				}

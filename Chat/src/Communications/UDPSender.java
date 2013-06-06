@@ -33,7 +33,7 @@ public class UDPSender {
 		}
 		//broadcast=InetAddress.getByName("192.168.224.142");
 		if(broadcast==null){
-			throw new UnknownHostException("No broadcast address");
+			throw new UnknownHostException("\rNo broadcast address");
 		}
 		ip = broadcast;
 		System.out.println(broadcast.toString());

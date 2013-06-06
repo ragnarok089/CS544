@@ -10,7 +10,7 @@ public class Connected extends State {
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 		
 		if(tcp.getActive()==false){
-			System.out.println("Otherside disconnceted");
+			System.out.println("\rOtherside disconnceted");
 			return new Disconnected();
 		}
 		else if(input.startsWith(":server")){
@@ -22,20 +22,20 @@ public class Connected extends State {
 			return new MidhandshakeClient();
 		}
 		else if(input.startsWith(":")){
-			System.out.println("Invalid command");
+			System.out.println("\rInvalid command");
 			return this;
 		}
 		else if(!input.equals("")){
-			System.out.println("You cannot chat yet");
+			System.out.println("\rYou cannot chat yet");
 			return this;
 		}
 		else if (tcpMessage instanceof ClientHandShakeMessage && tcpMessage.getCorrect()) {
 			ClientHandShakeMessage m=(ClientHandShakeMessage)tcpMessage;
-			System.out.println("Do you wish to talk to "+m.senderUsername+" at "+m.senderUsername);
+			System.out.println("\rDo you wish to talk to "+m.senderUsername+" at "+m.senderUsername);
 			return new UserConfirmConnection();
 		} 
 		else if (tcpMessage instanceof ServerHandShakeMessage && tcpMessage.getCorrect()) {
-			System.out.println("The person who connected to you thinks you're a server.\nDisconnecting");
+			System.out.println("\rThe person who connected to you thinks you're a server.\nDisconnecting");
 			try{
 				tcp.close();
 			}
