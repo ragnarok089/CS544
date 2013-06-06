@@ -14,18 +14,30 @@ public class Disconnected extends State {
 			return new Connected();
 		}
 		else if(input.startsWith(":ip")){
+			if(input.length()<5){
+				System.out.println("\rAn argument is required");
+				return this;
+			}
 			if(0>tcp.connect(input.substring(4))){
 				System.out.println("\rUnable to connect to IP address");
 			}
 			return this;
 		}
 		else if(input.startsWith(":host")){
+			if(input.length()<7){
+				System.out.println("\rAn argument is required");
+				return this;
+			}
 			if(0>tcp.connect(input.substring(6))){
 				System.out.println("\rUnable to connect to IP address");
 			}
 			return this;
 		}
 		else if(input.startsWith(":local")){
+			if(input.length()<8){
+				System.out.println("\rAn argument is required");
+				return this;
+			}
 			try {
 				String senderUsername=User.getUserName();
 				String targetUsername=input.substring(7);
