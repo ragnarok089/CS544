@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -48,10 +47,6 @@ public class MainLoop {
 			System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();
 			if(input.startsWith(":dc")){
-				try {
-					tcp.close();
-				} catch (IOException e) {}
-				System.out.println("Disconnecting");
 				state.state=new Disconnected();
 			}
 			else if(input.startsWith(":quit")){

@@ -29,23 +29,16 @@ public class Disconnected extends State {
 			} catch (IOException e) {}
 			return new Waiting();
 		}
-		else if(input.startsWith(":")){
-			System.out.println("Invalid command");
-			return this;
-		}
-		else if(!input.equals("")){
-			System.out.println("You cannot chat in this state");
-			return this;
-		}
-		else if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){
+		else if(udpMessage!=null){
+			if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){
 				UDPBroadcastMessage m=(UDPBroadcastMessage)udpMessage;
 				if(m.getCorrect() && m.targetUsername.equals(User.userName)){
-					add new state;
 					System.out.println("Received a broadcast with your username and calling them back");
 					tcp.connect(m.senderIP);
 				}
+			}
 			return this;
-		}	
+		}
 		else{
 			return this;
 		}

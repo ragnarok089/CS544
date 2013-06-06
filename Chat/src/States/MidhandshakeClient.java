@@ -6,7 +6,6 @@ import Communications.TCP;
 import Communications.UDPSender;
 import Messages.ClientAcceptMessage;
 import Messages.DeclineConnectMessage;
-import Messages.ErrorMessage;
 import Messages.Message;
 import Messages.ServerAcceptMessage;
 
@@ -18,7 +17,13 @@ public class MidhandshakeClient extends State{
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("The other side disconnected");
+			return new Disconnected();
+		}
+		else if(input.startsWith(":exit")){
+			try {
+				tcp.close();
+			} catch (IOException e) {}
+			System.out.println("Disconnecting");
 			return new Disconnected();
 		}
 		else if(tcpMessage instanceof ClientAcceptMessage && tcpMessage.getCorrect()){
@@ -30,18 +35,6 @@ public class MidhandshakeClient extends State{
 			} catch (IOException e) {}
 			System.out.println("Expected a client response but got a server response");
 			return new Disconnected();
-		}
-		else if(tcpMessage!=null){
-			tcp.send(new ErrorMessage(13,Message.minSize,0,"", new byte[0]));
-			return this;
-		}
-		else if(input.startsWith(":")){
-			System.out.println("Inavlid command");
-			return this;
-		}
-		else if(!input.equals("")){
-			System.out.println("You cannot chat in this state");
-			return this;
 		}
 		else{
 			return this;
