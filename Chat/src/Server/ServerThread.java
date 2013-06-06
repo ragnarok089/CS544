@@ -2,6 +2,7 @@ package Server;
 
 import java.io.IOException;
 
+import Messages.ErrorMessage;
 import Messages.Message;
 import Utilities.InputReader;
 
@@ -28,6 +29,7 @@ public class ServerThread implements Runnable{
 			String input=ir.getSubmitted();
 			if(input.startsWith(":quit")){
 				done=true;
+				continue;
 			}
 			else if(input.startsWith(":dc")){
 				try {
@@ -35,9 +37,20 @@ public class ServerThread implements Runnable{
 				} catch (IOException e) {}
 				System.out.println("Disconnecting");
 				state.state=new ServerDisconnected();
+				done=true;
+				continue;
 			}
 			else if(input.equals("")){
 				tcpMessage=tcp.read();
+				if(tcpMessage instanceof ErrorMessage && tcpMessage.getCorrect()){
+					System.out.println("\rAn error occured while communicating.\nDisconnecting");
+					try {
+						tcp.close();
+					} catch (IOException e) {}
+					state.state=new ServerDisconnected();
+					done=true;
+					continue;
+				}
 			}
 			state.process(tcp, tcpMessage, timeEnteredState);
 			lastState = state.getState();
