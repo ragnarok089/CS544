@@ -41,10 +41,8 @@ public class MainLoop {
 		long timeEnteredState=System.currentTimeMillis();
 		Message udpMessage=null;
 		Message tcpMessage=null;
-		
-		
 		while(!error && !done){
-			if(state.getState().getClass()!=lastState.getClass()){
+			if(lastState==null||state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
 			System.out.print("\r"+ir.getInput());
