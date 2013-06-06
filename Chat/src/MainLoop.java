@@ -46,7 +46,7 @@ public class MainLoop {
 			if(lastState==null || state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
-			System.out.print("\r"+ir.getInput());
+			//System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();
 			if(input.startsWith(":dc")){
 				state.state=new Disconnected();

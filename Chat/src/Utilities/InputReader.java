@@ -11,14 +11,9 @@ public class InputReader implements Runnable {
 	boolean done;
 	public InputReader(){
 		sc=new Scanner(System.in);
-		p=Pattern.compile(".");
 		done=false;
 		buffer="";
 		ready="";
-	}
-	
-	public String getInput(){
-		return buffer;
 	}
 	
 	public String getSubmitted(){
@@ -32,12 +27,7 @@ public class InputReader implements Runnable {
 	public void run() {
 		while(!done){
 			if(sc.hasNext()){
-				String s=sc.next(p);
-				buffer=buffer.concat(s);
-				if(s.equals("\n")){
-					ready=buffer;
-					buffer="";
-				}
+				ready=sc.next();
 			}
 			else{
 				try {
