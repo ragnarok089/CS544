@@ -17,6 +17,7 @@ public class UDPSender {
 		Enumeration<NetworkInterface> interfaces =NetworkInterface.getNetworkInterfaces();
 		while (interfaces.hasMoreElements()) {
 			NetworkInterface networkInterface = interfaces.nextElement();
+			
 			if (networkInterface.isLoopback())
 				continue;    // Don't want to broadcast to the loopback interface
 			for (InterfaceAddress interfaceAddress :
@@ -26,10 +27,14 @@ public class UDPSender {
 					continue;
 				break;
 			}
+			if(broadcast!=null && !broadcast.toString().equals("/0.0.0.0")){
+				break;
+			}
 		}
 		//broadcast=InetAddress.getByName("192.168.224.142");
-		if(broadcast==null)
+		if(broadcast==null){
 			throw new UnknownHostException("No broadcast address");
+		}
 		ip = broadcast;
 		System.out.println(broadcast.toString());
 	}

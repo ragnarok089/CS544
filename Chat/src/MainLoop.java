@@ -28,6 +28,7 @@ public class MainLoop {
 			ur=new UDPReceiver();
 			us=new UDPSender();
 		} catch (SocketException | UnknownHostException e) {
+			System.out.println(e.getMessage());
 			System.out.println("Could not set up UDP socket");
 			System.exit(-1);
 		}

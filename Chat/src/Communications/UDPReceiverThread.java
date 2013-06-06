@@ -24,6 +24,9 @@ public class UDPReceiverThread implements Runnable {
 						continue;
 					break;
 				}
+				if(broadcast!=null || broadcast.toString().contains("192.168")){
+					break;
+				}
 			}
 			try {
 				socket = new DatagramSocket(12346,broadcast=InetAddress.getByName("0.0.0.0"));
