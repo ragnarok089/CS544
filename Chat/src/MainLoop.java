@@ -45,7 +45,6 @@ public class MainLoop {
 		Message tcpMessage=null;
 		while(!error && !done){
 			if(lastState==null || !state.state.getClass().equals(lastState.getClass())){
-				System.out.println("Updated timer");
 				timeEnteredState=System.currentTimeMillis();
 			}
 			//System.out.print("\r"+ir.getInput());
@@ -83,8 +82,8 @@ public class MainLoop {
 					}
 				}		
 			}
-			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
 			lastState = state.getState();
+			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
 		}
 		ir.stop();
 		try {
