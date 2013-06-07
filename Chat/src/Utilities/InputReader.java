@@ -22,7 +22,6 @@ public class InputReader implements Runnable {
 	
 	public void stop(){
 		done=true;
-		sc.close();
 		
 	}
 	
@@ -36,7 +35,7 @@ public class InputReader implements Runnable {
 	public void run() {
 		try{
 			while (!done) {
-				if (sc.hasNextLine()) {
+				if (sc.hasNextLine() && sc.hasNext()) {
 					getSetReady(sc.nextLine());
 				} else {
 					try {
@@ -46,6 +45,5 @@ public class InputReader implements Runnable {
 				}
 			}
 		} catch (IllegalStateException e) {}
-		System.out.println("done");
 	}
 }
