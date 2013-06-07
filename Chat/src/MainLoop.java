@@ -11,6 +11,7 @@ import States.Disconnected;
 import States.State;
 import Utilities.CurrentState;
 import Utilities.InputReader;
+import Utilities.User;
 
 
 public class MainLoop {
@@ -57,6 +58,14 @@ public class MainLoop {
 				try {
 					tcp.close();
 				} catch (IOException e) {}
+				continue;
+			}
+			else if(input.startsWith(":user")){
+				if(input.length()<7){
+					System.out.println("\rAn argument is required");
+					continue;
+				}
+				User.setUserName(input.substring(6));
 				continue;
 			}
 			else if (input.equals("")) {
