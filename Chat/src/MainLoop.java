@@ -71,6 +71,11 @@ public class MainLoop {
 				try {
 					tcp.close();
 				} catch (Exception e) {}
+				ir.stop();
+				try {
+					ur.stop();
+				} catch (InterruptedException e) {
+				}
 				System.out.println("Quitting");
 				continue;
 			}
