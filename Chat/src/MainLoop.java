@@ -22,7 +22,7 @@ public class MainLoop {
 	static UDPReceiver ur;
 	static UDPSender us;
 	static CurrentState state=new CurrentState();
-	static State lastState=new Disconnected();
+	static State lastState=null;
 	static boolean firstCall=true;
 	
 	
