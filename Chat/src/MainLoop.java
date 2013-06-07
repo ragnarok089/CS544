@@ -18,7 +18,7 @@ public class MainLoop {
 	static boolean done = false;
 	static InputReader ir = new InputReader();
 	static String input;
-	static TCP tcp=new TCP();
+	static TCP tcp=null;
 	static UDPReceiver ur;
 	static UDPSender us;
 	static CurrentState state=new CurrentState();
@@ -36,8 +36,7 @@ public class MainLoop {
 			System.out.println("Could not set up UDP socket");
 			System.exit(-1);
 		}
-		Thread tcpListen=new Thread(tcp);
-		tcpListen.start();
+		Thread tcpListen=null;
 		Thread irThread=new Thread(ir);
 		irThread.start();
 		long timeEnteredState=System.currentTimeMillis();
@@ -51,7 +50,19 @@ public class MainLoop {
 			if(lastState==null || !state.state.getClass().equals(lastState.getClass())){
 				firstCall=true;
 				timeEnteredState=System.currentTimeMillis();
+				if(state.state instanceof Disconnected){
+					try {
+						tcp.close();
+					} catch (Exception e1) {}
+					try{
+						tcp.stop();
+					}catch(Exception e){}
+					tcp=new TCP();
+					tcpListen=new Thread(tcp);
+					tcpListen.start();
+				}
 			}
+
 			else{
 				firstCall=false;
 			}
