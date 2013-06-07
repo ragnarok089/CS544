@@ -4,7 +4,7 @@ public class ServerSendsInfoMessage extends Message {
 	String targetUsername = null;
 	public String targetIP = null;
 
-	public static final long minSize = 132;
+	public static final long minSize = 143;
 
 	public ServerSendsInfoMessage(int _op, long _length, long _reserved,
 			String _options, byte[] body) {
