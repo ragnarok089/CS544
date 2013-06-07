@@ -65,21 +65,21 @@ public class UDPBroadcastMessage extends Message {
 			storage[total+i]=tmp[i];
 		}
                 
-		total+=tmp.length;
+		total+=128;
                 
 		tmp=senderIP.getBytes();
 		for(int i=0;i<tmp.length;i++){
 			storage[total+i]=tmp[i];
 		}
                 
-		total+=tmp.length;
+		total+=4;
                 
                 tmp=targetUsername.getBytes();
                 for(int i=0;i<tmp.length;i++){
 			storage[total+i]=tmp[i];
 		}
                 
-		total+=tmp.length;
+		total+=128;
                 
 		return storage;
 	}
