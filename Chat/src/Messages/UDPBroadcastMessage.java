@@ -38,13 +38,13 @@ public class UDPBroadcastMessage extends Message {
 		senderUsername=new String(senderUserArray,0,senderUserArray.length);
 		
 		int offset=128;
-		byte [] ipArray = new byte[11];
-        for (int i = 0; i < body.length && i < 11; i++){
+		byte [] ipArray = new byte[15];
+        for (int i = 0; i < body.length && i < 15; i++){
             ipArray[i] = body[i+offset];
         }
         senderIP=new String(ipArray,0,ipArray.length);
 		 
-        offset+=11;
+        offset+=15;
                 byte [] targetUserArray = new byte[128];
                 for (int i = 0; i < body.length && i < 128; i++){
                     targetUserArray[i] = body[offset+i];
