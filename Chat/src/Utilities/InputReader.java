@@ -12,13 +12,11 @@ public class InputReader implements Runnable {
 	public InputReader(){
 		sc=new Scanner(System.in);
 		done=false;
-		buffer="";
 		ready="";
 	}
 	
 	public String getSubmitted(){
 		String store=ready;
-		ready="";
 		return store;
 	}
 	
