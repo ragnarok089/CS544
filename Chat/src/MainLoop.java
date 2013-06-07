@@ -102,7 +102,7 @@ public class MainLoop {
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState,firstCall);
 
 		}
-		System.out.println("Hit enter to finish exiting");
+		System.out.println("\n\nHit enter to finish exiting");
 		try {
 			tcp.close();
 		} catch (Exception e1) {}
