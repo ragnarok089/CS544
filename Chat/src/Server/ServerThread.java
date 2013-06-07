@@ -15,6 +15,7 @@ public class ServerThread implements Runnable{
 		boolean done=false;
 		boolean error=false;
 		ServerCurrentState state=new ServerCurrentState();
+		state.setup();
 		long timeEnteredState=0;
 		ServerState lastState=null;
 		Message tcpMessage=null;
