@@ -33,11 +33,15 @@ public class TCPReceiverThread implements Runnable {
 			packet=new byte[5000];
 			try{
 				int size=is.read(packet);
+				if(size<0){
+					running=false;
+				}
 				for(int i=0;i<size;i++){
 					queue.add(packet[i]);
 				}
 				System.out.println("Got it");
 				System.out.println(size);
+				System.out.println(queue.size());
 			}
 			catch(SocketTimeoutException e){
 			} catch (IOException e) {
@@ -47,7 +51,6 @@ public class TCPReceiverThread implements Runnable {
 		}
 		try {
 			is.close();
-			socket.close();
 		} catch (IOException e) {
 		}
 		try {
