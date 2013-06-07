@@ -48,6 +48,7 @@ public class TCP implements Runnable {
 				}
 			}
 			ip=address;
+			System.out.println(queue.hashCode());
 			tr = new TCPReceiverThread(queue);
 		}
     	catch(Exception e){

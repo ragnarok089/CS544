@@ -43,7 +43,6 @@ public class MainLoop {
 		long timeEnteredState=System.currentTimeMillis();
 		Message udpMessage=null;
 		Message tcpMessage=null;
-		
 		System.out.println("Welcome to our chat client");
 		System.out.println("To quit, type :quit");
 		System.out.println("To disconnect at any time, type :dc");
@@ -60,6 +59,10 @@ public class MainLoop {
 			input=ir.getSubmitted();
 			if(input.startsWith(":dc")){
 				System.out.println("Disconnecting");
+				try{
+					tcp.close();
+				}
+				catch(Exception e){}
 				state.state=new Disconnected();
 				continue;
 			}
