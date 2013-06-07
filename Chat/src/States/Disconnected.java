@@ -8,34 +8,37 @@ import Utilities.*;
 
 
 public class Disconnected extends State {
-	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
-	
+	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
+		if(firstCall){
+			System.out.println("You are disconnected. To attempt to automatically find a chatter locally, type :local <username>\n");
+			System.out.println("To talk to someone in particular use the :ip <ip address> or the :host <host name> commands");
+		}
 		if(tcp.getActive()==true){
 			return new Connected();
 		}
 		else if(input.startsWith(":ip")){
 			if(input.length()<5){
-				System.out.println("\rAn argument is required");
+				System.out.println("An argument is required");
 				return this;
 			}
 			if(0>tcp.connect(input.substring(4))){
-				System.out.println("\rUnable to connect to IP address");
+				System.out.println("Unable to connect to IP address");
 			}
 			return this;
 		}
 		else if(input.startsWith(":host")){
 			if(input.length()<7){
-				System.out.println("\rAn argument is required");
+				System.out.println("An argument is required");
 				return this;
 			}
 			if(0>tcp.connect(input.substring(6))){
-				System.out.println("\rUnable to connect to IP address");
+				System.out.println("Unable to connect to IP address");
 			}
 			return this;
 		}
 		else if(input.startsWith(":local")){
 			if(input.length()<8){
-				System.out.println("\rAn argument is required");
+				System.out.println("An argument is required");
 				return this;
 			}
 			try {
@@ -48,11 +51,11 @@ public class Disconnected extends State {
 			return new Waiting();
 		}
 		else if(input.startsWith(":")){
-			System.out.println("\rInvalid command");
+			System.out.println("Invalid command");
 			return this;
 		}
 		else if(!input.equals("")){
-			System.out.println("\rYou cannot chat in this state");
+			System.out.println("You cannot chat in this state");
 			return this;
 		}
 		else if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){

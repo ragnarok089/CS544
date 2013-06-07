@@ -5,15 +5,17 @@ import Messages.*;
 
 
 public class Waiting extends State{
-	public static final long timeout=5000;
-	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
-		
+	public static final long timeout=60000;
+	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
+		if(firstCall){
+			System.out.println("Waiting for a response for at most 60 seconds. To cancel, type :dc");
+		}
 		if(tcp.getActive()==true){
-			System.out.println("\rConnection established");
+			System.out.println("Connection established");
 			return new Connected();
 		}
 		else if(System.currentTimeMillis()-timeEnteredState>timeout){
-			System.out.println("\rGot no response");
+			System.out.println("No response was received within the time limit");
 			return new Disconnected();
 		}
 		else{

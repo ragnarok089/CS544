@@ -11,19 +11,14 @@ import Messages.ServerAcceptMessage;
 
 
 public class MidhandshakeServer extends State{
-	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
-		
+	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
+		if(firstCall){
+			System.out.println("Waiting for the server to accept your invitation to chat.\nTo cancel type :dc");
+		}
 		if(tcp.getActive()==false){
 			try {
 				tcp.close();
-			} catch (IOException e) {}
-			return new Disconnected();
-		}
-		else if(input.startsWith(":exit")){
-			try {
-				tcp.close();
-			} catch (IOException e) {}
-			System.out.println("\rDisconnecting");
+			} catch (Exception e) {}
 			return new Disconnected();
 		}
 		else if(tcpMessage instanceof ServerAcceptMessage && tcpMessage.getCorrect()){
@@ -33,7 +28,7 @@ public class MidhandshakeServer extends State{
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("\rExpected a server response but got a client response");
+			System.out.println("Expected a server response but got a client response");
 			return new Disconnected();
 		}
 		else{
