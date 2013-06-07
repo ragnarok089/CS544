@@ -52,7 +52,7 @@ public class UDPReceiverThread implements Runnable {
 					byte[] data=packet.getData();
 					for(int i=0;i<data.length;i++){
 						out.add(data[i]);
-						System.out.println(packet.getOffset());
+						System.out.println(packet.getLength());
 					}
 					System.out.println("Got it");
 				}
