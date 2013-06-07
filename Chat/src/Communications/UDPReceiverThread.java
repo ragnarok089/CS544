@@ -54,6 +54,7 @@ public class UDPReceiverThread implements Runnable {
 						out.add(data[i]);
 					}
 					System.out.println("Got it");
+					System.out.println(packet.getLength());
 				}
 				catch(SocketTimeoutException e){
 				} catch (IOException e) {

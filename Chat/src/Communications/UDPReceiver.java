@@ -41,20 +41,20 @@ public class UDPReceiver  {
 	public Message read(){
 		if (!needsMore) {
 			if (queue.size() >= size) {
-				System.out.println(queue.size());
-				System.out.println("getting first");
 				current = new byte[size];
 				for (int i = 0; i < size; i++) {
 					current[i] = queue.poll();
 				}
-				System.out.println(queue.size());
+				System.out.println("Ate "+Integer.toString(size));
 				moreNeeded=parser.parse(current);
+				if(moreNeeded<0){
+					System.out.println("Parser Error");
+				}
 				if(queue.size()>=moreNeeded){
-					System.out.println("Second is there alredy");
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
 					}
-					System.out.println(queue.size());
+					System.out.println("Ate "+Integer.toString(moreNeeded));
 					needsMore=false;
 					moreNeeded=Integer.MAX_VALUE;
 					return parser.addBody(body);
