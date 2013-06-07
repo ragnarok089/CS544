@@ -44,7 +44,7 @@ public class UDPReceiverThread implements Runnable {
 		
 		public void run(){
 			running=true;
-			byte[] buffer=new byte[Integer.MAX_VALUE];
+			byte[] buffer=new byte[5000];
 			DatagramPacket packet= new DatagramPacket(buffer,buffer.length);
 			while(running){
 				try{
