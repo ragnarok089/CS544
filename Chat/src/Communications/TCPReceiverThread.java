@@ -30,10 +30,10 @@ public class TCPReceiverThread implements Runnable {
 	public void run() {
 		byte[] packet=null;
 		while(running){
-			packet=new byte[1024];
+			packet=new byte[5000];
 			try{
-				is.read(packet);
-				for(int i=0;i<packet.length;i++){
+				int size=is.read(packet);
+				for(int i=0;i<size;i++){
 					queue.add(packet[i]);
 				}
 			}

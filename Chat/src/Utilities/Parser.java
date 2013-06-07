@@ -9,6 +9,7 @@ public class Parser {
 	String options;
 	boolean needsMore=false;
 	public int parse(byte[] message){//returns the number of body bytes it needs
+		System.out.println("Parsing");
 		if(needsMore){
 			return -2;
 		}
@@ -57,6 +58,7 @@ public class Parser {
 		}
 	}
 	public Message addBody(byte[] body){
+		System.out.println("Adding body");
 		needsMore=false;
 		switch(op){
 		case 1: //udp broadcast
