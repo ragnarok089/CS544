@@ -50,6 +50,7 @@ public class TCP implements Runnable {
 			ip=address;
 			System.out.println(queue.hashCode());
 			tr = new TCPReceiverThread(queue);
+			System.out.println(queue.hashCode());
 		}
     	catch(Exception e){
     		System.out.println("Could not set up TCP");
@@ -120,6 +121,11 @@ public class TCP implements Runnable {
 	 }
 	
 	public Message read(){
+		System.out.println(queue.hashCode());
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
 		if (!needsMore) {
 			if(queue.size()!=0){
 				System.out.println(queue.size());
@@ -168,8 +174,8 @@ public class TCP implements Runnable {
 	
 	public void close() throws IOException{
 		active=false;
-		queue.clear();
 		tr.stop();
+		queue.clear();
 		socket.close();
 	}
 }
