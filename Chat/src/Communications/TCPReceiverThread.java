@@ -37,6 +37,7 @@ public class TCPReceiverThread implements Runnable {
 					queue.add(packet[i]);
 				}
 				System.out.println("Got it");
+				System.out.println(size);
 			}
 			catch(SocketTimeoutException e){
 			} catch (IOException e) {
