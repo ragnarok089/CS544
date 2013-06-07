@@ -122,12 +122,17 @@ public class TCP implements Runnable {
 	public Message read(){
 		if (!needsMore) {
 			if (queue.size() >= size) {
+				System.out.println("Getting first");
 				current = new byte[size];
 				for (int i = 0; i < size; i++) {
 					current[i] = queue.poll();
 				}
 				moreNeeded=parser.parse(current);
+				if(0>moreNeeded){
+					System.out.println("Parser Error");
+				}
 				if(queue.size()>=moreNeeded){
+					System.out.println("second is already here");
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
 					}
@@ -143,6 +148,7 @@ public class TCP implements Runnable {
 			}
 		}
 		else if(queue.size()>=moreNeeded){
+			System.out.println("Getting second");
 			for (int i = 0; i < moreNeeded; i++) {
 				body[i] = queue.poll();
 			}
