@@ -17,7 +17,7 @@ public class TCP implements Runnable {
     ConcurrentLinkedQueue<Byte> queue=null;
     protected boolean active;
     int size=132;
-    int moreNeeded=0;
+    int moreNeeded=Integer.MAX_VALUE;
     boolean needsMore=false;
     byte[] current=null;
     byte[] body=null;
@@ -130,6 +130,7 @@ public class TCP implements Runnable {
 						body[i] = queue.poll();
 					}
 					needsMore=false;
+					moreNeeded=Integer.MAX_VALUE;
 					return parser.addBody(body);
 				}
 				needsMore=true;
@@ -144,9 +145,9 @@ public class TCP implements Runnable {
 				body[i] = queue.poll();
 			}
 			needsMore=false;
+			moreNeeded=Integer.MAX_VALUE;
 			return parser.addBody(body);
 		}
-		needsMore=true;
 		return null;
 	}
 	

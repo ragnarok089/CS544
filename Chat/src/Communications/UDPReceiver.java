@@ -15,7 +15,7 @@ public class UDPReceiver  {
 	protected ConcurrentLinkedQueue<Byte> queue=new ConcurrentLinkedQueue<Byte>();
 	protected boolean needsMore=false;
 	int size=132;
-    int moreNeeded=0;
+    int moreNeeded=Integer.MAX_VALUE;
     byte[] current=null;
     byte[] body=null;
     Parser parser=new Parser();
@@ -51,6 +51,7 @@ public class UDPReceiver  {
 						body[i] = queue.poll();
 					}
 					needsMore=false;
+					moreNeeded=Integer.MAX_VALUE;
 					return parser.addBody(body);
 				}
 				needsMore=true;
@@ -64,6 +65,7 @@ public class UDPReceiver  {
 				body[i] = queue.poll();
 			}
 			needsMore=false;
+			moreNeeded=Integer.MAX_VALUE;
 			return parser.addBody(body);
 		}
 		return null;

@@ -50,6 +50,7 @@ public class MainLoop {
 			//System.out.print("\r"+ir.getInput());
 			input=ir.getSubmitted();
 			if(input.startsWith(":dc")){
+				System.out.println("Disconnecting");
 				state.state=new Disconnected();
 				continue;
 			}
@@ -57,7 +58,8 @@ public class MainLoop {
 				done=true;
 				try {
 					tcp.close();
-				} catch (IOException e) {}
+				} catch (Exception e) {}
+				System.out.println("Quitting");
 				continue;
 			}
 			else if(input.startsWith(":user")){
