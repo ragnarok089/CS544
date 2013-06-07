@@ -15,6 +15,8 @@ public class ConnectedInitiator extends State{
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The otherside disconnceted");
+			System.out.println(tcp.active);
+			System.out.println(tcp.socket.isClosed());
 			try{
 				tcp.close();
 			}

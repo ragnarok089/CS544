@@ -11,6 +11,8 @@ public class ConnectedReceiver extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
 			System.out.println("A connection has been established. Waiting for the handshake.\nTo cancel type :dc");
+			System.out.println(tcp.active);
+			System.out.println(tcp.socket.isClosed());
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The otherside disconnceted");

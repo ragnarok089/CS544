@@ -10,11 +10,11 @@ import Utilities.Parser;
 
 
 public class TCP implements Runnable {
-	Socket socket=null;
+	public Socket socket=null;
     TCPReceiverThread tr=null;
     Thread t=null;
     ConcurrentLinkedQueue<Byte> queue=new ConcurrentLinkedQueue<Byte>();
-    protected boolean active;
+    public boolean active;
     int size=132;
     int moreNeeded=Integer.MAX_VALUE;
     boolean needsMore=false;
