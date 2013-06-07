@@ -73,7 +73,7 @@ public class Message {
 		for (int i = 0; i < numBytes && i < numstr.length() / 8.0; i++) {
 			String currentByte=numstr.substring(numstr.length() - 8 * (i + 1),numstr.length() - 8 * i);
 			if (currentByte.startsWith("1")) {
-				currentByte = "-" + numstr.substring(1);
+				currentByte = "-" + currentByte.substring(1);
 			}
 			storage[i] = Byte.parseByte(currentByte, 2);
 		}
