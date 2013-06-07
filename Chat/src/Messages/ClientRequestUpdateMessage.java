@@ -31,7 +31,7 @@ public class ClientRequestUpdateMessage extends Message {
 			return;
 		}
 		byte[] senderUserArray = new byte[128];
-		for (int i = 0; i < body.length; i++) {
+		for (int i = 0; i < senderUserArray.length; i++) {
 			senderUserArray[i] = body[i];
 		}
 		senderUsername = new String(senderUserArray, 0, senderUserArray.length);
@@ -39,7 +39,7 @@ public class ClientRequestUpdateMessage extends Message {
 		int offset = 128;
 		
 		int[] senderIPArray = new int[15];
-		for (int i = 0; i < body.length && i < 128; i++) {
+		for (int i = 0; i < senderIPArray.length && i < 128; i++) {
 			senderIPArray[i] = body[i + offset];
 		}
 		
