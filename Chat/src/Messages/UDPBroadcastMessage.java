@@ -43,6 +43,7 @@ public class UDPBroadcastMessage extends Message {
                 byte [] targetUserArray = new byte[128];
                 for (int i = 0; i < body.length && i < 128; i++){
                     targetUserArray[i] = body[offset+i];
+                    System.out.println(targetUserArray[128-i-1]);
                 }
 		targetUsername=new String(targetUserArray,0,targetUserArray.length);
 		
