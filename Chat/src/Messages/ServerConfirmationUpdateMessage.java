@@ -7,7 +7,7 @@ public class ServerConfirmationUpdateMessage extends Message {
 	public static final long minSize = 143;
 
 	public ServerConfirmationUpdateMessage(int _op, long _length,
-			long _reserved, String _options, int[] body) {
+			long _reserved, String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 7) {
@@ -26,12 +26,12 @@ public class ServerConfirmationUpdateMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		if (body.length != 143) {
 			correct = false;
 			return;
 		}
-		int[] confirmedUserArray = new int[128];
+		byte[] confirmedUserArray = new byte[128];
 		for (int i = 0; i < body.length; i++) {
 			confirmedUserArray[i] = body[i];
 		}
@@ -40,7 +40,7 @@ public class ServerConfirmationUpdateMessage extends Message {
 		
 		int offset = 128;
 
-		int[] senderIPArray = new int[15];
+		byte[] senderIPArray = new byte[15];
 		for (int i = 0; i < body.length && i < 15; i++) {
 			senderIPArray[i] = body[i + offset];
 		}

@@ -8,7 +8,7 @@ public class UDPBroadcastMessage extends Message {
 	public static final long minSize = 271;// 260;
 
 	public UDPBroadcastMessage(int _op, long _length, long _reserved,
-			String _options, int[] body) {
+			String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 1) {
@@ -28,27 +28,27 @@ public class UDPBroadcastMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		if (body.length != minSize) {
 			correct = false;
 			return;
 		}
 
-		int[] senderUserArray = new int[128];
+		byte[] senderUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			senderUserArray[i] = body[i];
 		}
 		senderUsername = new String(senderUserArray, 0, senderUserArray.length);
 
 		int offset = 128;
-		int[] ipArray = new int[15];
+		byte[] ipArray = new byte[15];
 		for (int i = 0; i < body.length && i < 15; i++) {
 			ipArray[i] = body[i + offset];
 		}
 		senderIP = new String(ipArray, 0, ipArray.length);
 
 		offset += 15;
-		int[] targetUserArray = new int[128];
+		byte[] targetUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			targetUserArray[i] = body[offset + i];
 		}

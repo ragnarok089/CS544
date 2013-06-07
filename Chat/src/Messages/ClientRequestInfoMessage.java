@@ -8,7 +8,7 @@ public class ClientRequestInfoMessage extends Message {
 	public static final long minSize = 271;
 
 	public ClientRequestInfoMessage(int _op, long _length, long _reserved,
-			String _options, int[] body) {
+			String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 8) {
@@ -28,12 +28,12 @@ public class ClientRequestInfoMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		if (body.length != 271) {
 			correct = false;
 			return;
 		}
-		int[] senderUserArray = new int[128];
+		byte[] senderUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			senderUserArray[i] = body[i];
 		}
@@ -41,7 +41,7 @@ public class ClientRequestInfoMessage extends Message {
 
 		int offset = 128;
 		
-		int[] senderIPArray = new int[15];
+		byte[] senderIPArray = new byte[15];
 		for (int i = 0; i < body.length && i < 15; i++) {
 			senderIPArray[i] = body[i + offset];
 		}
@@ -50,7 +50,7 @@ public class ClientRequestInfoMessage extends Message {
 		
 		offset += 15;
 
-		int[] targetUserArray = new int[128];
+		byte[] targetUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			targetUserArray[i] = body[offset + i];
 		}

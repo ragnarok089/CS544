@@ -7,7 +7,7 @@ public class ClientHandShakeMessage extends Message {
 	public static final long minSize = 143;
 
 	public ClientHandShakeMessage(int _op, long _length, long _reserved,
-			String _options, int[] body) {
+			String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 3) {
@@ -25,14 +25,14 @@ public class ClientHandShakeMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		
 		if (body.length != 143) {
 			correct = false;
 			return;
 		}
 
-		int[] senderUserArray = new int[128];
+		byte[] senderUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			senderUserArray[i] = body[i];
 		}
@@ -40,7 +40,7 @@ public class ClientHandShakeMessage extends Message {
 		
 		int offset = 128;
 
-		int[] senderIPArray = new int[15];
+		byte[] senderIPArray = new byte[15];
 		for (int i = 0; i < body.length && i < 15; i++) {
 			senderIPArray[i] = body[i + offset];
 		}

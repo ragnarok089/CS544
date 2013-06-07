@@ -7,7 +7,7 @@ public class ServerSendsInfoMessage extends Message {
 	public static final long minSize = 132;
 
 	public ServerSendsInfoMessage(int _op, long _length, long _reserved,
-			String _options, int[] body) {
+			String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 9) {
@@ -25,13 +25,13 @@ public class ServerSendsInfoMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		if (body.length != 143) {
 			correct = false;
 			return;
 		}
 
-		int[] targetUserArray = new int[128];
+		byte[] targetUserArray = new byte[128];
 		for (int i = 0; i < body.length && i < 128; i++) {
 			targetUserArray[i] = body[i];
 		}
@@ -39,7 +39,7 @@ public class ServerSendsInfoMessage extends Message {
 		
 		int offset = 128;
 		
-		int[] targetIPArray = new int[15];
+		byte[] targetIPArray = new byte[15];
 		for (int i = 0; i < body.length && i < 15; i++) {
 			targetIPArray[i] = body[i + offset];
 		}

@@ -6,7 +6,7 @@ public class LookupFailedMessage extends Message {
 	public static final long minSize = 128;
 
 	public LookupFailedMessage(int _op, long _length, long _reserved,
-			String _options, int[] body) {
+			String _options, byte[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 12) {
@@ -23,13 +23,13 @@ public class LookupFailedMessage extends Message {
 		}
 	}
 
-	private void processBody(int[] body) {
+	private void processBody(byte[] body) {
 		if (body.length != 128) {
 			correct = false;
 			return;
 		}
 
-		int[] targetUserArray = new int[128];
+		byte[] targetUserArray = new byte[128];
 		for (int i = 0; i < body.length; i++) {
 			targetUserArray[i] = body[i];
 		}
