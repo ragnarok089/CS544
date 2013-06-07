@@ -82,7 +82,10 @@ public class MainLoop {
 						state.state=new Disconnected();
 						continue;
 					}
-				}		
+				}
+				else{
+					System.out.println("I have a udp message");
+				}
 			}
 			lastState = state.getState();
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
