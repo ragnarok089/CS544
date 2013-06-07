@@ -33,13 +33,17 @@ public class ServerReady extends ServerState{
 			Message message = null;
 			String user=((ClientRequestUpdateMessage)tcpMessage).senderUsername;
 			String ip=((ClientRequestUpdateMessage)tcpMessage).senderIP;
+			System.out.println("past parsing");
 			if(LookupTable.lookup(user)!=null){
+				System.out.println("already found");
 				message=new NameCollisionMessage(14,NameCollisionMessage.minSize+Message.minSize,0,"",user);
 			}
 			else{
+				System.out.println("not found");
 				LookupTable.bind(user, ip);
 				message=new ServerConfirmationUpdateMessage(7,ServerConfirmationUpdateMessage.minSize+Message.minSize,0,"",user,ip);
 			}
+			System.out.println("sending");
 			tcp.send(message);
 			return this;
 		}
