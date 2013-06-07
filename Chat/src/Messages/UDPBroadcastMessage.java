@@ -6,7 +6,7 @@ public class UDPBroadcastMessage extends Message {
 	public String targetUsername=null;
 	public String senderIP=null;
         
-	public static final long minSize=260;
+	public static final long minSize=271;//260;
         
 	public UDPBroadcastMessage(int _op,long _length,long _reserved,String _options,byte[] body){
 		super(_op,_length,_reserved,_options);
@@ -26,7 +26,7 @@ public class UDPBroadcastMessage extends Message {
 	}
         
 	private void processBody(byte[] body){
-		if(body.length!=260){
+		if(body.length!=minSize){
 			correct=false;
 			return;
 		}
@@ -36,14 +36,18 @@ public class UDPBroadcastMessage extends Message {
                     senderUserArray[i] = body[i];
                 }
 		senderUsername=new String(senderUserArray,0,senderUserArray.length);
-                
-		byte [] senderIPArray=new byte[]{body[128],body[129],body[130],body[131]}; 
-		senderIP=new String(senderIPArray,0,senderIPArray.length);
-        int offset=132;
+		
+		int offset=128;
+		byte [] ipArray = new byte[11];
+        for (int i = 0; i < body.length && i < 11; i++){
+            ipArray[i] = body[i+offset];
+        }
+        senderIP=new String(ipArray,0,ipArray.length);
+		 
+        offset+=11;
                 byte [] targetUserArray = new byte[128];
                 for (int i = 0; i < body.length && i < 128; i++){
                     targetUserArray[i] = body[offset+i];
-                    System.out.println(targetUserArray[128-i-1]);
                 }
 		targetUsername=new String(targetUserArray,0,targetUserArray.length);
 		
@@ -56,7 +60,7 @@ public class UDPBroadcastMessage extends Message {
 			storage[i]=upper[i];
 		}
 		
-                int total=upper.length-1;
+                int total=upper.length;
 
 		byte[] tmp=null;
 		
@@ -72,7 +76,7 @@ public class UDPBroadcastMessage extends Message {
 			storage[total+i]=tmp[i];
 		}
                 
-		total+=4;
+		total+=15;
                 
                 tmp=targetUsername.getBytes();
                 for(int i=0;i<tmp.length;i++){
