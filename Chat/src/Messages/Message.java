@@ -20,7 +20,11 @@ public class Message {
 	protected long fromByteArray(byte[] bytes) {
 		long total=0;
 	    for(int i=0;i<bytes.length;i++){
-	    	total+=(long)i*Math.pow(2, 8*i);
+	    	int store=(int) (Byte.valueOf(bytes[i]).intValue()*Math.pow(2, 8*i));
+	    	if(store<0){
+	    		store=127-store;
+	    	}
+	    	total+=store;
 	    }
 	    return total;
 	}
@@ -51,9 +55,15 @@ public class Message {
 	}
 	
 	public byte[] numToByte(int num,int numBytes){
+		if(num>=128){
+			num+=1;
+		}
 		String numstr=Integer.toBinaryString(num);
 		while(numstr.length()%8!=0){
 			numstr="0".concat(numstr);
+		}
+		if(numstr.startsWith("1")){
+			numstr="-"+numstr.substring(1);
 		}
 		byte[] storage=new byte[numBytes];
 		for(int i=0;i<numBytes && i<Integer.toString(num).length();i++){
