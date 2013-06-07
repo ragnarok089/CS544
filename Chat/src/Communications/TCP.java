@@ -44,7 +44,7 @@ public class TCP implements Runnable {
 						continue;
 					break;
 				}
-				if (address != null || address.toString().contains("192.168.224")) {
+				if (address != null && address.toString().contains("192.168.224")) {
 					break;
 				}
 			}
