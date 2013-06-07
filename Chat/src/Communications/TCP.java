@@ -58,7 +58,7 @@ public class TCP implements Runnable {
     	}
     }
     public boolean getActive(){
-    	return active && !socket.isClosed();
+    	return active && (socket!=null && !socket.isClosed());
     }
 	public void run(){
 		Socket socket2 = null;

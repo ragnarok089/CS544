@@ -12,7 +12,14 @@ public class UserConfirmConnection extends State{
 		if(firstCall){
 			System.out.println("To connect to the caller type :y\nTo reject, type :n or :dc");
 		}
-		if(input.startsWith(":y")){
+		if(!tcp.getActive()){
+			try{
+				tcp.close();
+			}catch(Exception e){}
+			System.out.println("The other side disconnected");
+			return new Disconnected();
+		}
+		else if(input.startsWith(":y")){
 			tcp.send(new ClientAcceptMessage(5,Message.minSize,0,"",new byte[0]));
 			return new Chatting();
 		}
