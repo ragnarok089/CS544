@@ -1,70 +1,73 @@
 package Messages;
 
-
 public class ServerHandShakeMessage extends Message {
-	String senderUsername=null;
-	String senderIP=null;
+	String senderUsername = null;
+	String senderIP = null;
 
-	public static final long minSize=260;
-        
-	public ServerHandShakeMessage(int _op,long _length,long _reserved,String _options,byte[] body){
-		super(_op,_length,_reserved,_options);
+	public static final long minSize = 260;
+
+	public ServerHandShakeMessage(int _op, long _length, long _reserved,
+			String _options, byte[] body) {
+		super(_op, _length, _reserved, _options);
 		processBody(body);
-		if(op!=2){
-			correct=false;
+		if (op != 2) {
+			correct = false;
 		}
 	}
-	public ServerHandShakeMessage(int _op,long _length,long _reserved,String _options,String _senderUsername,String _senderIP){
-		super(_op,_length,_reserved,_options);
-		senderUsername=_senderUsername;
-		senderIP=_senderIP;
-		if(op!=2){
-			correct=false;
+
+	public ServerHandShakeMessage(int _op, long _length, long _reserved,
+			String _options, String _senderUsername, String _senderIP) {
+		super(_op, _length, _reserved, _options);
+		senderUsername = _senderUsername;
+		senderIP = _senderIP;
+		if (op != 2) {
+			correct = false;
 		}
 	}
-        
-        private void processBody(byte[] body){
-		if(body.length!=260){
-			correct=false;
+
+	private void processBody(byte[] body) {
+		if (body.length != 260) {
+			correct = false;
 			return;
 		}
 
-                byte [] senderUserArray = new byte[128];
-                for (byte i = 0; i < body.length && i < 128; i++){
-                    senderUserArray[i] = body[i];
-                }
-		senderUsername=new String(senderUserArray,0,senderUserArray.length);
-                
-		byte [] senderIPArray=new byte[]{body[128],body[129],body[130],body[131]}; 
-		senderIP=new String(senderIPArray,0,senderIPArray.length);
-		
-	}
-        
-	public byte[] convert(){
-		byte[] upper=super.convert();
-		byte[] storage=new byte[(int) (upper.length+minSize)];
-		for(int i=0;i<upper.length;i++){
-			storage[i]=upper[i];
+		byte[] senderUserArray = new byte[128];
+		for (byte i = 0; i < body.length && i < 128; i++) {
+			senderUserArray[i] = body[i];
 		}
-		
-                int total=upper.length-1;
+		senderUsername = new String(senderUserArray, 0, senderUserArray.length);
 
-		byte[] tmp=null;
-		
-                tmp=senderUsername.getBytes();
-		for(int i=0;i<tmp.length;i++){
-			storage[total+i]=tmp[i];
+		byte[] senderIPArray = new byte[] { body[128], body[129], body[130],
+				body[131] };
+		senderIP = new String(senderIPArray, 0, senderIPArray.length);
+
+	}
+
+	public byte[] convert() {
+		byte[] upper = super.convert();
+		byte[] storage = new byte[(int) (upper.length + minSize)];
+		for (int i = 0; i < upper.length; i++) {
+			storage[i] = upper[i];
 		}
-                
-		total+=tmp.length;
-                
-		tmp=senderIP.getBytes();
-		for(int i=0;i<tmp.length;i++){
-			storage[total+i]=tmp[i];
+
+		int total = upper.length - 1;
+
+		byte[] tmp = null;
+
+		tmp = senderUsername.getBytes();
+		for (int i = 0; i < tmp.length; i++) {
+			storage[total + i] = tmp[i];
 		}
-    
-		total+=tmp.length;
-                
+
+		total += tmp.length;
+
+		tmp = senderIP.getBytes();
+		for (int i = 0; i < tmp.length; i++) {
+			storage[total + i] = tmp[i];
+		}
+
+		total += tmp.length;
+
 		return storage;
 	}
 }

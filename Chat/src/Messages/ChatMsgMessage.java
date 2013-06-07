@@ -25,9 +25,9 @@ public class ChatMsgMessage extends Message {
 			return;
 		}
 		byte [] messageArray = new byte[1024];
-                for (byte i = 0; i < body.length; i++){
-                    messageArray[i] = body[i];
-                }
+        for (byte i = 0; i < body.length; i++){
+        	messageArray[i] = body[i];
+        }
 
 	}
 	public byte[] convert(){
@@ -37,12 +37,12 @@ public class ChatMsgMessage extends Message {
 			storage[i]=upper[i];
 		}
 		
-                int total=upper.length-1;
+        int total=upper.length;
 
 		byte[] tmp=null;
 		        
-                tmp=messages.getBytes();
-                for(int i=0;i<tmp.length;i++){
+        tmp=messages.getBytes();
+        for(int i=0;i<tmp.length;i++){
 			storage[total+i]=tmp[i];
 		}
                 

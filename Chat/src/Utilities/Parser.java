@@ -41,12 +41,7 @@ public class Parser {
 			case 10://Decline to connect Message
 				return 0;
 			case 11: //chat message
-				if(length-132<0){
-					return -1;
-				}
-				else{
-					return (int) (length-132);
-				}
+				return (int) ChatMsgMessage.minSize;
 			case 12: //lookup failed
 				return (int) LookupFailedMessage.minSize;
 			case 13://Error
