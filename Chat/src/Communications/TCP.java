@@ -189,6 +189,7 @@ public class TCP implements Runnable {
 	}
 	
 	public void close() throws IOException{
+		System.out.println("Closing");
 		active=false;
 		//running=false;
 		tr.stop();
