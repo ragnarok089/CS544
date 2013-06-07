@@ -44,7 +44,8 @@ public class MainLoop {
 		Message udpMessage=null;
 		Message tcpMessage=null;
 		while(!error && !done){
-			if(lastState==null || state.getState().getClass()!=lastState.getClass()){
+			if(lastState==null || !state.state.getClass().equals(lastState.getClass())){
+				System.out.println("Updated timer");
 				timeEnteredState=System.currentTimeMillis();
 			}
 			//System.out.print("\r"+ir.getInput());
