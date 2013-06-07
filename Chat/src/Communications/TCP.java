@@ -121,11 +121,6 @@ public class TCP implements Runnable {
 	 }
 	
 	public Message read(){
-		System.out.println(queue.hashCode());
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-		}
 		if (!needsMore) {
 			if(queue.size()!=0){
 				System.out.println(queue.size());
@@ -152,7 +147,6 @@ public class TCP implements Runnable {
 				needsMore=true;
 				return null;
 			} else {
-				needsMore=true;
 				return null;
 			}
 		}
