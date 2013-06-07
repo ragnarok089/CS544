@@ -10,7 +10,7 @@ import Utilities.*;
 public class Disconnected extends State {
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
-			System.out.println("You are disconnected. To attempt to automatically find a chatter locally, type :local <username>\n");
+			System.out.println("You are disconnected. To attempt to automatically find a chatter locally, type :local <username>");
 			System.out.println("To talk to someone in particular use the :ip <ip address> or the :host <host name> commands");
 		}
 		if(tcp.getActive()==true){
