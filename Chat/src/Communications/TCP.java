@@ -63,13 +63,14 @@ public class TCP implements Runnable {
 	public void run(){
 		Socket socket2 = null;
 		boolean error = false;
+		try {
+			serverSocket = new ServerSocket(12345, 0, ip);
+			serverSocket.setSoTimeout(500);
+		} catch (Exception e) {
+			System.out.println("Could not open TCP port");
+		}
 		while (running) {
 			if (!getActive()) {
-				try {
-					serverSocket = new ServerSocket(12345, 0, ip);
-					serverSocket.setSoTimeout(500);
-				} catch (Exception e) {
-				}
 				try {
 					socket2 = serverSocket.accept();
 					error = false;
