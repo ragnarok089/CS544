@@ -97,7 +97,7 @@ public class Parser {
 	protected long fromByteArray(byte[] bytes) {
 		long total=0;
 	    for(int i=0;i<bytes.length;i++){
-	    	total+=(long)i*Math.pow(2, 8*i);
+	    	total+=(long)bytes[i]*Math.pow(2, 8*i);
 	    }
 	    return total;
 	}
