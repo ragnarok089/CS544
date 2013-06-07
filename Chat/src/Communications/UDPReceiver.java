@@ -56,7 +56,6 @@ public class UDPReceiver  {
 				needsMore=true;
 				return null;
 			} else {
-				needsMore=true;
 				return null;
 			}
 		}
