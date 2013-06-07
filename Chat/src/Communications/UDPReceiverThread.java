@@ -2,6 +2,7 @@ package Communications;
 import java.io.*;
 import java.net.*;
 //import java.util.Enumeration;
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -11,28 +12,27 @@ public class UDPReceiverThread implements Runnable {
 		protected volatile boolean running;
 		
 		public UDPReceiverThread(ConcurrentLinkedQueue<Byte> queue) throws SocketException{
-			/*InetAddress broadcast = null;
-			Enumeration<NetworkInterface> interfaces =NetworkInterface.getNetworkInterfaces();
+			InetAddress address = null;
+			Enumeration<NetworkInterface> interfaces = NetworkInterface
+					.getNetworkInterfaces();
 			while (interfaces.hasMoreElements()) {
 				NetworkInterface networkInterface = interfaces.nextElement();
 				if (networkInterface.isLoopback())
-					continue;    // Don't want to broadcast to the loopback interface
-				for (InterfaceAddress interfaceAddress :
-					networkInterface.getInterfaceAddresses()) {
-					broadcast = interfaceAddress.getAddress();
-					if (!broadcast.toString().contains("192.168"))
+					continue; // Don't want to broadcast to the loopback
+								// interface
+				Enumeration<InetAddress> addresses = networkInterface
+						.getInetAddresses();
+				while (addresses.hasMoreElements()) {
+					address = addresses.nextElement();
+					if (!address.getHostAddress().contains("192.168.224"))
 						continue;
 					break;
 				}
-				if(broadcast!=null || broadcast.toString().contains("192.168")){
+				if (address != null || address.toString().contains("192.168.224")) {
 					break;
 				}
-			}*/
-			try {
-				socket = new DatagramSocket(12346,InetAddress.getByName("0.0.0.0"));
-			} catch (UnknownHostException e) {
-				System.out.println("\rFailed to create UDP receiver");
 			}
+			socket = new DatagramSocket(12346,address);
 			socket.setSoTimeout(500);
 			out=queue;
 		}

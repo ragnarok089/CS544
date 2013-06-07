@@ -40,11 +40,11 @@ public class TCP implements Runnable {
 						.getInetAddresses();
 				while (addresses.hasMoreElements()) {
 					address = addresses.nextElement();
-					if (!address.getHostAddress().contains("192.168"))
+					if (!address.getHostAddress().contains("192.168.224"))
 						continue;
 					break;
 				}
-				if (address != null || address.toString().contains("192.168")) {
+				if (address != null || address.toString().contains("192.168.224")) {
 					break;
 				}
 			}

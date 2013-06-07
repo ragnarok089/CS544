@@ -27,7 +27,7 @@ public class UDPSender {
 					continue;
 				break;
 			}
-			if(broadcast!=null && !broadcast.toString().equals("/0.0.0.0")){
+			if(broadcast!=null && broadcast.toString().contains("192.168.224")){
 				break;
 			}
 		}
