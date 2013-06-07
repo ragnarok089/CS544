@@ -28,6 +28,7 @@ public class TCPReceiverThread implements Runnable {
 		return socket.getInetAddress().getHostAddress();
 	}
 	public void run() {
+		running=true;
 		byte[] packet=null;
 		while(running){
 			packet=new byte[5000];
