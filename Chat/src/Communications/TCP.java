@@ -11,7 +11,6 @@ import Utilities.Parser;
 
 public class TCP implements Runnable {
 	Socket socket=null;
-    PushbackInputStream clientInputStream;
     TCPReceiverThread tr=null;
     Thread t=null;
     ConcurrentLinkedQueue<Byte> queue=null;
@@ -66,7 +65,6 @@ public class TCP implements Runnable {
          Socket socket2 = serverSocket.accept();
          if(!getActive()){
         	 socket=socket2;
-             clientInputStream = new PushbackInputStream(socket.getInputStream());
              active=true;
              tr.setSocket(socket);
              t=new Thread(tr);
@@ -86,6 +84,7 @@ public class TCP implements Runnable {
 			if(getActive()){
 				return -1;
 			}
+			active=true;
 			socket = new Socket(target, 12345);
 			tr.setSocket(socket);
             t=new Thread(tr);
@@ -159,7 +158,6 @@ public class TCP implements Runnable {
 		active=false;
 		queue.clear();
 		tr.stop();
-		clientInputStream.close();
 		socket.close();
 	}
 }

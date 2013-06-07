@@ -14,7 +14,14 @@ public class UserConfirmCallback extends State{
 			return new Connected();
 		}
 		else if(input.startsWith(":y")){
-			tcp.connect(tcp.pendingIP);
+			if(0>tcp.connect(tcp.pendingIP)){
+				System.out.println("Could not connect to target");
+				try{
+					tcp.close();
+				}
+				catch(Exception e){}
+				return new Disconnected();
+			}
 			return this;
 		}
 		else if(input.startsWith(":n")){
