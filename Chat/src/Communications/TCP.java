@@ -26,6 +26,7 @@ public class TCP implements Runnable {
 	public InetAddress ip=null;
     
     public TCP(){
+    	System.out.println("In the constructor");
 		try {
 			InetAddress address = null;
 			Enumeration<NetworkInterface> interfaces = NetworkInterface
