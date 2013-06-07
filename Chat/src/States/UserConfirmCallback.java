@@ -11,7 +11,12 @@ public class UserConfirmCallback extends State{
 			System.out.println("To connect to the caller, type :y.\nTo reject, type :n or :dc");
 		}
 		if(tcp.getActive()){
-			return new Connected();
+			if(tcp.initiator){
+				return new ConnectedInitiator();
+			}
+			else{
+				return new ConnectedReceiver();
+			}
 		}
 		else if(input.startsWith(":y")){
 			if(0>tcp.connect(tcp.pendingIP)){

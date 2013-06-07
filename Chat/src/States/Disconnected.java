@@ -14,7 +14,12 @@ public class Disconnected extends State {
 			System.out.println("To talk to someone in particular use the :ip <ip address> or the :host <host name> commands");
 		}
 		if(tcp.getActive()==true){
-			return new Connected();
+			if(tcp.initiator){
+				return new ConnectedInitiator();
+			}
+			else{
+				return new ConnectedReceiver();
+			}
 		}
 		else if(input.startsWith(":ip")){
 			if(input.length()<5){

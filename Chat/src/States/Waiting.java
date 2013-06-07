@@ -12,7 +12,12 @@ public class Waiting extends State{
 		}
 		if(tcp.getActive()==true){
 			System.out.println("Connection established");
-			return new Connected();
+			if(tcp.initiator){
+				return new ConnectedInitiator();
+			}
+			else{
+				return new ConnectedReceiver();
+			}
 		}
 		else if(System.currentTimeMillis()-timeEnteredState>timeout){
 			System.out.println("No response was received within the time limit");

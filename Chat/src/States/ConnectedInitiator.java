@@ -1,18 +1,24 @@
 package States;
-import Communications.*;
-import Messages.*;
+
+import Communications.TCP;
+import Communications.UDPSender;
+import Messages.ClientHandShakeMessage;
+import Messages.ErrorMessage;
+import Messages.Message;
+import Messages.ServerHandShakeMessage;
 import Utilities.User;
 
-
-
-
-public class Connected extends State {
+public class ConnectedInitiator extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
 			System.out.println("A connection has been established. Type :client if you are connected to a client and :server if its a server");
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The otherside disconnceted");
+			try{
+				tcp.close();
+			}
+			catch(Exception e){}
 			return new Disconnected();
 		}
 		else if(input.startsWith(":server")){
@@ -37,8 +43,8 @@ public class Connected extends State {
 			System.out.println("Do you wish to talk to "+m.senderUsername+" at "+m.senderUsername);
 			return new UserConfirmConnection();
 		} 
-		else if (tcpMessage instanceof ServerHandShakeMessage && tcpMessage.getCorrect()) {
-			System.out.println("The person who connected to you thinks you're a server.\nDisconnecting");
+		else if ( (tcpMessage instanceof ClientHandShakeMessage|| tcpMessage instanceof ServerHandShakeMessage) && tcpMessage.getCorrect()) {
+			System.out.println("You initiated the contact but the other person sent the handshake first.\nDisconnecting");
 			try{
 				tcp.close();
 			}
@@ -53,5 +59,4 @@ public class Connected extends State {
 			return this;
 		}
 	}
-	
 }

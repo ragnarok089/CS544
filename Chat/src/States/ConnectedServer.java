@@ -9,6 +9,10 @@ public class ConnectedServer extends State {
 		System.out.println("You are connected to a server.\nType :update to try to bind your name to your ip.\nType :query <username> to ask the server for the ip of that username\nType :dc to disconnect");
 		if (tcp.getActive() == false) {
 			System.out.println("Server disconnected");
+			try{
+				tcp.close();
+			}
+			catch(Exception e){}
 			return new Disconnected();
 			
 		} else if (input.startsWith(":update")) {

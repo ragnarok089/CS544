@@ -11,6 +11,10 @@ public class ServerUpdate extends State {
 		}
 		if (tcp.getActive() == false) {
 			System.out.println("Server disconnected");
+			try{
+				tcp.close();
+			}
+			catch(Exception e){}
 			return new Disconnected();
 			
 		} else if (tcpMessage instanceof NameCollisionMessage && tcpMessage.getCorrect()) {

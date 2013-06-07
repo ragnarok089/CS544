@@ -12,6 +12,10 @@ public class Chatting extends State{
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The other side disconnected");
+			try{
+				tcp.close();
+			}
+			catch(Exception e){}
 			return new Disconnected();
 		}
 		else if(!input.equals("")){

@@ -44,7 +44,7 @@ public class TCPReceiverThread implements Runnable {
 			}
 			catch(SocketTimeoutException e){
 			} catch (IOException e) {
-				System.out.println("\rTCP socket receive error");
+				System.out.println("TCP socket receive error");
 				running=false;
 			}
 		}

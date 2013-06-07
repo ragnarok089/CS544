@@ -24,6 +24,7 @@ public class TCP implements Runnable {
 	public String pendingIP="";
 	public ServerSocket serverSocket=null;
 	public InetAddress ip=null;
+	public boolean initiator=false;
     
     public TCP(){
 		try {
@@ -63,6 +64,7 @@ public class TCP implements Runnable {
 		 serverSocket = new ServerSocket(12345,0,ip);
          Socket socket2 = serverSocket.accept();
          if(!getActive()){
+        	 initiator=false;
         	 socket=socket2;
              active=true;
              tr.setSocket(socket);
@@ -83,6 +85,7 @@ public class TCP implements Runnable {
 			if(getActive()){
 				return -1;
 			}
+			initiator=true;
 			active=true;
 			socket = new Socket(target, 12345);
 			tr.setSocket(socket);

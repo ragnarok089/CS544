@@ -11,6 +11,10 @@ public class ServerQuery extends State{
 		}
 		if (tcp.getActive() == false) {
 			System.out.println("Server disconnected");
+			try{
+				tcp.close();
+			}
+			catch(Exception e){}
 			return new Disconnected();
 			
 		}  else if (tcpMessage instanceof LookupFailedMessage && tcpMessage.getCorrect()) {
