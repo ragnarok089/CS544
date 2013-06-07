@@ -7,7 +7,7 @@ public class ServerSendsInfoMessage extends Message {
 	public static final long minSize = 132;
 
 	public ServerSendsInfoMessage(int _op, long _length, long _reserved,
-			String _options, byte[] body) {
+			String _options, int[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 9) {
@@ -25,22 +25,27 @@ public class ServerSendsInfoMessage extends Message {
 		}
 	}
 
-	private void processBody(byte[] body) {
-		if (body.length != 132) {
+	private void processBody(int[] body) {
+		if (body.length != 143) {
 			correct = false;
 			return;
 		}
 
-		byte[] targetUserArray = new byte[128];
-		for (byte i = 0; i < body.length && i < 128; i++) {
+		int[] targetUserArray = new int[128];
+		for (int i = 0; i < body.length && i < 128; i++) {
 			targetUserArray[i] = body[i];
 		}
 		targetUsername = new String(targetUserArray, 0, targetUserArray.length);
+		
+		int offset = 128;
+		
+		int[] targetIPArray = new int[15];
+		for (int i = 0; i < body.length && i > 129; i++) {
+			targetIPArray[i] = body[i + offset];
+		}
 
-		byte[] targetIPArray = new byte[] { body[128], body[129], body[130],
-				body[131] };
 		targetIP = new String(targetIPArray, 0, targetIPArray.length);
-
+		
 	}
 
 	public byte[] convert() {
@@ -50,7 +55,7 @@ public class ServerSendsInfoMessage extends Message {
 			storage[i] = upper[i];
 		}
 
-		int total = upper.length - 1;
+		int total = upper.length;
 
 		byte[] tmp = null;
 
@@ -59,14 +64,14 @@ public class ServerSendsInfoMessage extends Message {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 128;
 
 		tmp = targetIP.getBytes();
 		for (int i = 0; i < tmp.length; i++) {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 15;
 
 		return storage;
 	}

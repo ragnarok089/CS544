@@ -4,10 +4,10 @@ public class ClientRequestUpdateMessage extends Message {
 	public String senderUsername = null;
 	public String senderIP = null;
 
-	public static final long minSize = 128;
+	public static final long minSize = 143;
 
 	public ClientRequestUpdateMessage(int _op, long _length, long _reserved,
-			String _options, byte[] body) {
+			String _options, int[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 6) {
@@ -25,20 +25,26 @@ public class ClientRequestUpdateMessage extends Message {
 		}
 	}
 
-	private void processBody(byte[] body) {
-		if (body.length != 128) {
+	private void processBody(int[] body) {
+		if (body.length != 143) {
 			correct = false;
 			return;
 		}
-		byte[] senderUserArray = new byte[128];
-		for (byte i = 0; i < body.length; i++) {
+		int[] senderUserArray = new int[128];
+		for (int i = 0; i < body.length; i++) {
 			senderUserArray[i] = body[i];
 		}
 		senderUsername = new String(senderUserArray, 0, senderUserArray.length);
-
-		byte[] senderIPArray = new byte[] { body[128], body[129], body[130],
-				body[131] };
+		
+		int offset = 128;
+		
+		int[] senderIPArray = new int[15];
+		for (int i = 0; i < body.length && i > 129; i++) {
+			senderIPArray[i] = body[i + offset];
+		}
+		
 		senderIP = new String(senderIPArray, 0, senderIPArray.length);
+		
 
 	}
 
@@ -49,7 +55,7 @@ public class ClientRequestUpdateMessage extends Message {
 			storage[i] = upper[i];
 		}
 
-		int total = upper.length - 1;
+		int total = upper.length;
 
 		byte[] tmp = null;
 
@@ -58,12 +64,14 @@ public class ClientRequestUpdateMessage extends Message {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 128;
 
 		tmp = senderIP.getBytes();
 		for (int i = 0; i < tmp.length; i++) {
 			storage[total + i] = tmp[i];
 		}
+		
+		total += 15;
 
 		return storage;
 	}

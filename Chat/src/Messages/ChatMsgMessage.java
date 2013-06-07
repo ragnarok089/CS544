@@ -5,7 +5,7 @@ public class ChatMsgMessage extends Message {
         public String messages=null;
 
 	public static final long minSize=1024;
-	public ChatMsgMessage(int _op,long _length,long _reserved,String _options,byte[] body){
+	public ChatMsgMessage(int _op,long _length,long _reserved,String _options,int[] body){
 		super(_op,_length,_reserved,_options);
 		processBody(body);
 		if(op!=11){
@@ -19,16 +19,17 @@ public class ChatMsgMessage extends Message {
 			correct=false;
 		}
 	}
-	private void processBody(byte[] body){
+	private void processBody(int[] body){
+		
 		if(body.length!=1024){
 			correct=false;
 			return;
 		}
-		byte [] messageArray = new byte[1024];
-        for (byte i = 0; i < body.length; i++){
+		int [] messageArray = new int[1024];
+        for (int i = 0; i < body.length; i++){
         	messageArray[i] = body[i];
         }
-
+        
 	}
 	public byte[] convert(){
 		byte[] upper=super.convert();
@@ -46,7 +47,7 @@ public class ChatMsgMessage extends Message {
 			storage[total+i]=tmp[i];
 		}
                 
-		total+=tmp.length;
+		total += 1024;
                 
 		return storage;
 	}

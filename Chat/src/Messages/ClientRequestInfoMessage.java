@@ -5,10 +5,10 @@ public class ClientRequestInfoMessage extends Message {
 	public String targetUsername = null;
 	String senderIP = null;
 
-	public static final long minSize = 260;
+	public static final long minSize = 271;
 
 	public ClientRequestInfoMessage(int _op, long _length, long _reserved,
-			String _options, byte[] body) {
+			String _options, int[] body) {
 		super(_op, _length, _reserved, _options);
 		processBody(body);
 		if (op != 8) {
@@ -28,24 +28,31 @@ public class ClientRequestInfoMessage extends Message {
 		}
 	}
 
-	private void processBody(byte[] body) {
-		if (body.length != 260) {
+	private void processBody(int[] body) {
+		if (body.length != 271) {
 			correct = false;
 			return;
 		}
-		byte[] senderUserArray = new byte[128];
-		for (byte i = 0; i < body.length && i < 128; i++) {
+		int[] senderUserArray = new int[128];
+		for (int i = 0; i < body.length && i < 128; i++) {
 			senderUserArray[i] = body[i];
 		}
 		senderUsername = new String(senderUserArray, 0, senderUserArray.length);
 
-		byte[] senderIPArray = new byte[] { body[128], body[129], body[130],
-				body[131] };
+		int offset = 128;
+		
+		int[] senderIPArray = new int[15];
+		for (int i = 0; i < body.length && i > 129 && i < 143; i++) {
+			senderIPArray[i] = body[i + offset];
+		}
+	
 		senderIP = new String(senderIPArray, 0, senderIPArray.length);
+		
+		offset += 15;
 
-		byte[] targetUserArray = new byte[128];
-		for (byte i = 0; i < body.length && i > 132; i++) {
-			targetUserArray[i] = body[i];
+		int[] targetUserArray = new int[128];
+		for (int i = 0; i < body.length && i > 144; i++) {
+			targetUserArray[i] = body[offset + i];
 		}
 		targetUsername = new String(targetUserArray, 0, targetUserArray.length);
 
@@ -58,7 +65,7 @@ public class ClientRequestInfoMessage extends Message {
 			storage[i] = upper[i];
 		}
 
-		int total = upper.length - 1;
+		int total = upper.length;
 
 		byte[] tmp = null;
 
@@ -67,21 +74,21 @@ public class ClientRequestInfoMessage extends Message {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 128;
 
 		tmp = senderIP.getBytes();
 		for (int i = 0; i < tmp.length; i++) {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 15;
 
 		tmp = targetUsername.getBytes();
 		for (int i = 0; i < tmp.length; i++) {
 			storage[total + i] = tmp[i];
 		}
 
-		total += tmp.length;
+		total += 128;
 
 		return storage;
 	}
