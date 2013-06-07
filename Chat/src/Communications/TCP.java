@@ -97,6 +97,10 @@ public class TCP implements Runnable {
 
 		}
 	}
+	
+	public void stop(){
+		running=false;
+	}
 
 	public int connect(String target){
 		try {

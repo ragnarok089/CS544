@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -68,15 +69,6 @@ public class MainLoop {
 			}
 			else if(input.startsWith(":quit")){
 				done=true;
-				try {
-					tcp.close();
-				} catch (Exception e) {}
-				ir.stop();
-				try {
-					ur.stop();
-				} catch (InterruptedException e) {
-				}
-				System.exit(0);
 				System.out.println("Quitting");
 				continue;
 			}
@@ -111,6 +103,10 @@ public class MainLoop {
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState,firstCall);
 
 		}
+		try {
+			tcp.close();
+		} catch (IOException e1) {}
+		tcp.stop();
 		ir.stop();
 		try {
 			ur.stop();
