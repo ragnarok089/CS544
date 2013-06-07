@@ -57,6 +57,7 @@ public class Parser {
 		}
 	}
 	public Message addBody(byte[] body){
+		needsMore=false;
 		switch(op){
 		case 1: //udp broadcast
 			return new UDPBroadcastMessage(op,length,reserved,options,body);
