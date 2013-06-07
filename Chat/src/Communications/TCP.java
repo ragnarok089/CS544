@@ -191,11 +191,11 @@ public class TCP implements Runnable {
 	public void close() throws IOException{
 		active=false;
 		//running=false;
-		/*tr.stop();
+		tr.stop();
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-		}*/
+		}
 		queue.clear();
 		socket.close();
 	}
