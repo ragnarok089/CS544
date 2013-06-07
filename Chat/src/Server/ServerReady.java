@@ -15,6 +15,7 @@ import Messages.ServerSendsInfoMessage;
 public class ServerReady extends ServerState{
 	public ServerState process(TCP tcp, Message tcpMessage, long timeEnteredState) {
 		if(tcpMessage instanceof ClientRequestInfoMessage && tcpMessage.getCorrect()){
+			System.out.println("info message");
 			Message message = null;
 			String user=((ClientRequestInfoMessage)tcpMessage).targetUsername;
 			String ip=LookupTable.lookup(user);
@@ -28,6 +29,7 @@ public class ServerReady extends ServerState{
 			return this;
 		}
 		else if(tcpMessage instanceof ClientRequestUpdateMessage && tcpMessage.getCorrect()){
+			System.out.println("update message");
 			Message message = null;
 			String user=((ClientRequestUpdateMessage)tcpMessage).senderUsername;
 			String ip=((ClientRequestUpdateMessage)tcpMessage).senderIP;
