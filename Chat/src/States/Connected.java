@@ -20,6 +20,7 @@ public class Connected extends State {
 			return new MidhandshakeServer();
 		}
 		else if(input.startsWith(":client")){
+			System.out.println("Sending Client handshake message");
 			tcp.send(new ClientHandShakeMessage(3,ClientHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeClient();
 		}
