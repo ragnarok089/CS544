@@ -51,6 +51,7 @@ public class UDPReceiver  {
 					System.out.println("Parser Error");
 				}
 				if(queue.size()>=moreNeeded){
+					body=new byte[moreNeeded];
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
 					}
@@ -67,6 +68,7 @@ public class UDPReceiver  {
 		}
 		else if(queue.size()>=moreNeeded){
 			System.out.println("getting second");
+			body=new byte[moreNeeded];
 			for (int i = 0; i < moreNeeded; i++) {
 				body[i] = queue.poll();
 			}
