@@ -13,7 +13,7 @@ public class TCP implements Runnable {
 	Socket socket=null;
     TCPReceiverThread tr=null;
     Thread t=null;
-    ConcurrentLinkedQueue<Byte> queue=null;
+    ConcurrentLinkedQueue<Byte> queue=new ConcurrentLinkedQueue<Byte>();
     protected boolean active;
     int size=132;
     int moreNeeded=Integer.MAX_VALUE;
@@ -26,7 +26,6 @@ public class TCP implements Runnable {
 	public InetAddress ip=null;
     
     public TCP(){
-    	System.out.println("In the constructor");
 		try {
 			InetAddress address = null;
 			Enumeration<NetworkInterface> interfaces = NetworkInterface
@@ -49,7 +48,6 @@ public class TCP implements Runnable {
 				}
 			}
 			ip=address;
-			queue = new ConcurrentLinkedQueue<Byte>();
 			tr = new TCPReceiverThread(queue);
 		}
     	catch(Exception e){
