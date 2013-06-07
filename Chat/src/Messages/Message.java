@@ -5,7 +5,7 @@ public class Message {
 	long length=-1;
 	long reserved=0;
 	String options="";
-	boolean correct;
+	boolean correct=true;
 	public final static int minSize=132;
 	public Message(int _op,long _length,long _reserved,String _options){
 		op=_op;
