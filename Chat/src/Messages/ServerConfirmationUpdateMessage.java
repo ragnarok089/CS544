@@ -32,7 +32,7 @@ public class ServerConfirmationUpdateMessage extends Message {
 			return;
 		}
 		byte[] confirmedUserArray = new byte[128];
-		for (int i = 0; i < body.length; i++) {
+		for (int i = 0; i < confirmedUserArray.length; i++) {
 			confirmedUserArray[i] = body[i];
 		}
 		confirmedUsername = new String(confirmedUserArray, 0,
@@ -41,7 +41,7 @@ public class ServerConfirmationUpdateMessage extends Message {
 		int offset = 128;
 
 		byte[] senderIPArray = new byte[15];
-		for (int i = 0; i < body.length && i < 15; i++) {
+		for (int i = 0; i < senderIPArray.length && i < 15; i++) {
 			senderIPArray[i] = body[i + offset];
 		}
 
