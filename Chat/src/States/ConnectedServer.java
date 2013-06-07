@@ -23,6 +23,7 @@ public class ConnectedServer extends State {
 			return new ServerUpdate();
 		} else if (input.startsWith(":query")) {
 			Message message=new ClientRequestInfoMessage(8,ClientRequestInfoMessage.minSize+Message.minSize,0,"",User.userName,input.substring(7).trim(),tcp.getIP());
+			System.out.println(new String(message.convert(),0,message.convert().length));
 			System.out.println(tcp.send(message));
 			return new ServerQuery();
 		} else {
