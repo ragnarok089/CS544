@@ -76,6 +76,7 @@ public class MainLoop {
 					ur.stop();
 				} catch (InterruptedException e) {
 				}
+				System.exit(0);
 				System.out.println("Quitting");
 				continue;
 			}

@@ -63,19 +63,25 @@ public class TCP implements Runnable {
 	public void run(){
 		try {
 			while (running) {
-				serverSocket = new ServerSocket(12345, 0, ip);
-				serverSocket.setSoTimeout(500);
-				Socket socket2 = serverSocket.accept();
 				if (!getActive()) {
-					initiator = false;
-					socket = socket2;
-					active = true;
-					tr.setSocket(socket);
-					t = new Thread(tr);
-					t.start();
-				} else {
-					socket2.close();
+					serverSocket = new ServerSocket(12345, 0, ip);
+					serverSocket.setSoTimeout(500);
+					Socket socket2 = serverSocket.accept();
+					if (!getActive()) {
+						initiator = false;
+						socket = socket2;
+						active = true;
+						tr.setSocket(socket);
+						t = new Thread(tr);
+						t.start();
+					} else {
+						socket2.close();
+					}
 				}
+				try{
+					Thread.sleep(500);
+				}
+				catch(Exception e){}
 			}
 		}
 		catch(Exception e){
