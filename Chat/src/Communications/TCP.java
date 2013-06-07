@@ -61,34 +61,43 @@ public class TCP implements Runnable {
     	return active && !socket.isClosed();
     }
 	public void run(){
-		try {
-			while (running) {
-				if (!getActive()) {
+		Socket socket2 = null;
+		boolean error = false;
+		while (running) {
+			if (!getActive()) {
+				try {
 					serverSocket = new ServerSocket(12345, 0, ip);
 					serverSocket.setSoTimeout(500);
-					Socket socket2 = serverSocket.accept();
-					if (!getActive()) {
-						initiator = false;
-						socket = socket2;
-						active = true;
-						tr.setSocket(socket);
-						t = new Thread(tr);
-						t.start();
-					} else {
+				} catch (Exception e) {
+				}
+				try {
+					socket2 = serverSocket.accept();
+					error = false;
+				} catch (Exception e) {
+					error = true;
+				}
+				if (!getActive() && !error) {
+					initiator = false;
+					socket = socket2;
+					active = true;
+					tr.setSocket(socket);
+					t = new Thread(tr);
+					t.start();
+				} else {
+					try {
 						socket2.close();
+					} catch (IOException e) {
 					}
 				}
-				try{
-					Thread.sleep(500);
-				}
-				catch(Exception e){}
 			}
-		}
-		catch(Exception e){
-			active=false;
+			try {
+				Thread.sleep(500);
+			} catch (Exception e) {
+			}
+
 		}
 	}
-	
+
 	public int connect(String target){
 		try {
 			if(getActive()){
