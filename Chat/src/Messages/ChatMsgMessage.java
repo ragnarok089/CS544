@@ -29,6 +29,7 @@ public class ChatMsgMessage extends Message {
         for (int i = 0; i < body.length && i<1024; i++){
         	messageArray[i] = body[i];
         }
+        messages=new String(messageArray,0,messageArray.length);
         
 	}
 	public byte[] convert(){
