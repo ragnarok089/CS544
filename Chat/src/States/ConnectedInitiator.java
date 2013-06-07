@@ -12,11 +12,12 @@ public class ConnectedInitiator extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
 			System.out.println("A connection has been established. Type :client if you are connected to a client and :server if its a server");
+			System.out.println(tcp.active);
+			System.out.println(tcp.socket.isClosed());
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The otherside disconnceted");
-			System.out.println(tcp.active);
-			System.out.println(tcp.socket.isClosed());
+
 			try{
 				tcp.close();
 			}
