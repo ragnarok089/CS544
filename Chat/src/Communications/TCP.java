@@ -79,6 +79,7 @@ public class TCP implements Runnable {
 				if (!getActive() && !error) {
 					initiator = false;
 					socket = socket2;
+					socket2=null;
 					active = true;
 					tr.setSocket(socket);
 					t = new Thread(tr);
