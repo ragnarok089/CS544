@@ -22,7 +22,6 @@ public class InputReader implements Runnable {
 	
 	public void stop(){
 		done=true;
-		sc.reset();
 		sc.close();
 		
 	}
@@ -47,5 +46,6 @@ public class InputReader implements Runnable {
 				}
 			}
 		} catch (IllegalStateException e) {}
+		System.out.println("done");
 	}
 }
