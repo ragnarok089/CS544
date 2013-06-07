@@ -54,6 +54,7 @@ public class Parser {
 			case 14://name collision
 				return (int) NameCollisionMessage.minSize;
 			default:
+				System.out.println("Error op code was "+Integer.toString(op));
 				return -1;
 		}
 	}
