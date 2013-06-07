@@ -32,7 +32,7 @@ public class UDPBroadcastMessage extends Message {
 		}
 
                 byte [] senderUserArray = new byte[128];
-                for (byte i = 0; i < body.length && i < 128; i++){
+                for (int i = 0; i < body.length && i < 128; i++){
                     senderUserArray[i] = body[i];
                 }
 		senderUsername=new String(senderUserArray,0,senderUserArray.length);
@@ -41,7 +41,7 @@ public class UDPBroadcastMessage extends Message {
 		senderIP=new String(senderIPArray,0,senderIPArray.length);
         int offset=132;
                 byte [] targetUserArray = new byte[128];
-                for (byte i = 0; i < body.length && i < 128; i++){
+                for (int i = 0; i < body.length && i < 128; i++){
                     targetUserArray[i] = body[offset+i];
                 }
 		targetUsername=new String(targetUserArray,0,targetUserArray.length);
