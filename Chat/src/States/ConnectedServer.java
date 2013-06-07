@@ -6,7 +6,9 @@ import Utilities.User;
 
 public class ConnectedServer extends State {
 	public State process(String input, TCP tcp, UDPSender us, Message udpMessage, Message tcpMessage, long timeEnteredState,boolean firstCall) {
-		System.out.println("You are connected to a server.\nType :update to try to bind your name to your ip.\nType :query <username> to ask the server for the ip of that username\nType :dc to disconnect");
+		if(firstCall){
+			System.out.println("You are connected to a server.\nType :update to try to bind your name to your ip.\nType :query <username> to ask the server for the ip of that username\nType :dc to disconnect");
+		}
 		if (tcp.getActive() == false) {
 			System.out.println("Server disconnected");
 			try{
