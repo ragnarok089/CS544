@@ -59,10 +59,9 @@ public class Message {
 	}
 
 	public byte[] numToByte(int num, int numBytes) {
-		if (num >= 128) {
+		/*if (num >= 128) {
 			num += 1;
-		}
-		System.out.println(num);
+		}*/
 		String numstr = Integer.toBinaryString(num);
 		while (numstr.length() % 8 != 0) {
 			numstr = "0".concat(numstr);
@@ -72,9 +71,11 @@ public class Message {
 		}
 		byte[] storage = new byte[numBytes];
 		for (int i = 0; i < numBytes && i < numstr.length() / 8.0; i++) {
-			storage[i] = Byte.parseByte(
-					numstr.substring(numstr.length() - 8 * (i + 1),
-							numstr.length() - 8 * i), 2);
+			String currentByte=numstr.substring(numstr.length() - 8 * (i + 1),numstr.length() - 8 * i);
+			if (currentByte.startsWith("1")) {
+				currentByte = "-" + numstr.substring(1);
+			}
+			storage[i] = Byte.parseByte(currentByte, 2);
 		}
 		return storage;
 	}
