@@ -121,6 +121,9 @@ public class TCP implements Runnable {
 	
 	public Message read(){
 		if (!needsMore) {
+			if(queue.size()!=0){
+				System.out.println(queue.size());
+			}
 			if (queue.size() >= size) {
 				System.out.println("Getting first");
 				current = new byte[size];
