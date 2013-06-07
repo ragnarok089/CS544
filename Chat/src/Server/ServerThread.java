@@ -20,7 +20,7 @@ public class ServerThread implements Runnable{
 		Message tcpMessage=null;
 		
 		while(!done && !error){
-			if(state.getState().getClass()!=lastState.getClass()){
+			if(lastState==null||state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
 			tcpMessage = tcp.read();
