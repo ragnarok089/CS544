@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -105,12 +104,17 @@ public class MainLoop {
 		}
 		try {
 			tcp.close();
-		} catch (IOException e1) {}
-		tcp.stop();
-		ir.stop();
+		} catch (Exception e1) {}
+		try{
+			tcp.stop();
+		}catch(Exception e){}
+		try{
+			ir.stop();
+		}
+		catch(Exception e){}
 		try {
 			ur.stop();
-		} catch (InterruptedException e) {}
+		} catch (Exception e) {}
 	}
 
 }
