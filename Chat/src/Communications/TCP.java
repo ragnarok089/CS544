@@ -2,6 +2,7 @@ package Communications;
 
 import java.io.*;
 import java.net.*;
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import Messages.Message;
@@ -23,17 +24,45 @@ public class TCP implements Runnable {
     Parser parser=new Parser();
 	public String pendingIP="";
 	public ServerSocket serverSocket=null;
+	public InetAddress ip=null;
     
     public TCP(){
-    	queue=new ConcurrentLinkedQueue<Byte>();
-    	tr=new TCPReceiverThread(queue);
+		try {
+			InetAddress address = null;
+			Enumeration<NetworkInterface> interfaces = NetworkInterface
+					.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				NetworkInterface networkInterface = interfaces.nextElement();
+				if (networkInterface.isLoopback())
+					continue; // Don't want to broadcast to the loopback
+								// interface
+				Enumeration<InetAddress> addresses = networkInterface
+						.getInetAddresses();
+				while (addresses.hasMoreElements()) {
+					address = addresses.nextElement();
+					if (!address.getHostAddress().contains("192.168"))
+						continue;
+					break;
+				}
+				if (address != null || address.toString().contains("192.168")) {
+					break;
+				}
+			}
+			ip=address;
+			queue = new ConcurrentLinkedQueue<Byte>();
+			tr = new TCPReceiverThread(queue);
+		}
+    	catch(Exception e){
+    		System.out.println("Could not set up TCP");
+    		System.exit(-1);
+    	}
     }
     public boolean getActive(){
     	return active && !socket.isClosed();
     }
 	public void run(){
 		try{
-		 serverSocket = new ServerSocket(12345);
+		 serverSocket = new ServerSocket(12345,0,ip);
          Socket socket2 = serverSocket.accept();
          if(!getActive()){
         	 socket=socket2;

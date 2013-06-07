@@ -5,7 +5,7 @@ import Messages.*;
 
 
 public class Waiting extends State{
-	public static final long timeout=1000;
+	public static final long timeout=5000;
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState){
 		
 		if(tcp.getActive()==true){
