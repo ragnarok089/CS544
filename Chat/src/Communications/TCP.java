@@ -48,9 +48,7 @@ public class TCP implements Runnable {
 				}
 			}
 			ip=address;
-			System.out.println(queue.hashCode());
 			tr = new TCPReceiverThread(queue);
-			System.out.println(queue.hashCode());
 		}
     	catch(Exception e){
     		System.out.println("Could not set up TCP");
@@ -137,6 +135,7 @@ public class TCP implements Runnable {
 				}
 				if(queue.size()>=moreNeeded){
 					System.out.println("second is already here");
+					body=new byte[moreNeeded];
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
 					}
@@ -152,6 +151,7 @@ public class TCP implements Runnable {
 		}
 		else if(queue.size()>=moreNeeded){
 			System.out.println("Getting second");
+			body=new byte[moreNeeded];
 			for (int i = 0; i < moreNeeded; i++) {
 				body[i] = queue.poll();
 			}
