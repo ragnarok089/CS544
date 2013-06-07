@@ -35,7 +35,7 @@ public class InputReader implements Runnable {
 	public void run() {
 		try{
 			while (!done) {
-				if (sc.hasNextLine() && sc.hasNext()) {
+				if (sc.hasNextLine()) {
 					getSetReady(sc.nextLine());
 				} else {
 					try {

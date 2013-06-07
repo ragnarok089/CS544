@@ -115,6 +115,7 @@ public class MainLoop {
 		try {
 			ur.stop();
 		} catch (Exception e) {}
+		System.out.println("Hit enter to finish exiting");
 	}
 
 }
