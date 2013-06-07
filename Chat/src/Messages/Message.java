@@ -53,7 +53,9 @@ public class Message {
 	public byte[] numToByte(int num,int numBytes){
 		String numstr=Integer.toBinaryString(num);
 		byte[] storage=new byte[numBytes];
-		for(int i=0;i<numBytes && i<numstr.length()/8;i++){
+		for(int i=0;i<numBytes && i<Integer.toString(num).length();i++){
+			System.out.println(num);
+			System.out.println(numstr.substring(numstr.length()-8*(i+1),numstr.length()-8*i));
 			storage[i]=Byte.decode(numstr.substring(numstr.length()-8*(i+1),numstr.length()-8*i));	
 		}
 		return storage;
