@@ -16,7 +16,7 @@ public class InputReader implements Runnable {
 	}
 	
 	public String getSubmitted(){
-		String store=ready;
+		String store=getSetReady("");
 		return store;
 	}
 	
@@ -24,14 +24,21 @@ public class InputReader implements Runnable {
 		done=true;
 	}
 	
+	private synchronized String getSetReady(String newReady){
+		String store=ready;
+		ready=newReady;
+		return store;
+		
+	}
+	
 	public void run() {
 		while(!done){
 			if(sc.hasNextLine()){
-				ready=sc.nextLine();
+				getSetReady(sc.nextLine());
 			}
 			else{
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {}
 			}
 		}
