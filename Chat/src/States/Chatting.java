@@ -16,7 +16,7 @@ public class Chatting extends State{
 		}
 		else if(!input.equals("")){
 			//System.out.println(input);
-			Message message=new ChatMsgMessage(11,input.length()+Message.minSize,0,"",input);
+			Message message=new ChatMsgMessage(11,Message.minSize+Message.minSize,0,"",input);
 			tcp.send(message);
 			return this;
 		}

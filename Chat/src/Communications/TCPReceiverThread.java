@@ -33,7 +33,6 @@ public class TCPReceiverThread implements Runnable {
 			packet=new byte[5000];
 			try{
 				int size=is.read(packet);
-				System.out.println(queue.hashCode());
 				if(size<0){
 					running=false;
 				}
@@ -42,8 +41,6 @@ public class TCPReceiverThread implements Runnable {
 				}
 				System.out.println("Got it");
 				System.out.println(size);
-				System.out.println(queue.size());
-				System.out.println(queue.hashCode());
 			}
 			catch(SocketTimeoutException e){
 			} catch (IOException e) {
