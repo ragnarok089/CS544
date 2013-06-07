@@ -62,7 +62,7 @@ public class Message {
 		if (num >= 128) {
 			num += 1;
 		}
-		String numstr = Integer.toBinaryString(num);
+		String numstr = Integer.toBinaryString(num).trim();
 		while (numstr.length() % 8 != 0) {
 			numstr = "0".concat(numstr);
 		}
