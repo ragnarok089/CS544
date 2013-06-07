@@ -86,7 +86,7 @@ public class TCP implements Runnable {
 				} else {
 					try {
 						socket2.close();
-					} catch (IOException e) {
+					} catch (Exception e) {
 					}
 				}
 			}
