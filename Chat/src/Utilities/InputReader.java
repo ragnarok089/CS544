@@ -22,7 +22,9 @@ public class InputReader implements Runnable {
 	
 	public void stop(){
 		done=true;
+		sc.reset();
 		sc.close();
+		
 	}
 	
 	private synchronized String getSetReady(String newReady){
