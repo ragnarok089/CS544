@@ -39,7 +39,7 @@ public class ClientRequestUpdateMessage extends Message {
 		int offset = 128;
 		
 		int[] senderIPArray = new int[15];
-		for (int i = 0; i < body.length && i > 129; i++) {
+		for (int i = 0; i < body.length && i < 128; i++) {
 			senderIPArray[i] = body[i + offset];
 		}
 		

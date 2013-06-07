@@ -42,7 +42,7 @@ public class ClientRequestInfoMessage extends Message {
 		int offset = 128;
 		
 		int[] senderIPArray = new int[15];
-		for (int i = 0; i < body.length && i > 129 && i < 143; i++) {
+		for (int i = 0; i < body.length && i < 15; i++) {
 			senderIPArray[i] = body[i + offset];
 		}
 	
@@ -51,7 +51,7 @@ public class ClientRequestInfoMessage extends Message {
 		offset += 15;
 
 		int[] targetUserArray = new int[128];
-		for (int i = 0; i < body.length && i > 144; i++) {
+		for (int i = 0; i < body.length && i < 128; i++) {
 			targetUserArray[i] = body[offset + i];
 		}
 		targetUsername = new String(targetUserArray, 0, targetUserArray.length);
