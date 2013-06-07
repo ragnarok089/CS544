@@ -58,7 +58,9 @@ public class Disconnected extends State {
 		else if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){
 				System.out.println("UDP message processed");
 				UDPBroadcastMessage m=(UDPBroadcastMessage)udpMessage;
-				if(m.getCorrect() && m.targetUsername.equals(User.userName)){
+				System.out.println("\""+m.targetUsername+"\"");
+				System.out.println("\""+User.userName+"\"");
+				if(m.targetUsername.equals(User.userName)){
 					System.out.println("\rReceived a broadcast with to your username from "+m.senderUsername+" at "+m.senderIP);
 					tcp.pendingIP=m.senderIP;
 					return new UserConfirmCallback();
