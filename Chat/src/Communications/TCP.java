@@ -98,6 +98,7 @@ public class TCP implements Runnable {
 	}
 	 public int send(byte[] message) {
          try {
+        	 	System.out.println(new String(message,0,message.length));
                  OutputStream socketOutputStream = socket.getOutputStream();
                  socketOutputStream.write(message, 0, message.length);
          } catch (Exception e) {
@@ -107,6 +108,8 @@ public class TCP implements Runnable {
 	 }
 	 public int send(Message message) {
          try {
+        	 System.out.println(new String(message.convert(),0,message.convert().length));
+        	 System.out.println(message.getCorrect());
                  OutputStream socketOutputStream = socket.getOutputStream();
                  byte[] buffer=message.convert();
                  socketOutputStream.write(buffer, 0, buffer.length);
