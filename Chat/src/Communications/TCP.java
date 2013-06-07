@@ -22,6 +22,7 @@ public class TCP implements Runnable {
     byte[] body=null;
     Parser parser=new Parser();
 	public String pendingIP="";
+	public ServerSocket serverSocket=null;
     
     public TCP(){
     	queue=new ConcurrentLinkedQueue<Byte>();
@@ -32,7 +33,7 @@ public class TCP implements Runnable {
     }
 	public void run(){
 		try{
-		 ServerSocket serverSocket = new ServerSocket(12345);
+		 serverSocket = new ServerSocket(12345);
          Socket socket2 = serverSocket.accept();
          if(!getActive()){
         	 socket=socket2;
@@ -121,7 +122,7 @@ public class TCP implements Runnable {
 	}
 	
 	public String getIP(){
-		return tr.getIP();
+		return serverSocket.getInetAddress().getHostAddress();
 	}
 	
 	public void close() throws IOException{
