@@ -52,9 +52,10 @@ public class UDPReceiverThread implements Runnable {
 					byte[] data=packet.getData();
 					for(int i=0;i<packet.getLength();i++){
 						out.add(data[i]);
+						System.out.println(data[i]);
 					}
 					System.out.println("Got it");
-					System.out.println(packet.getLength());
+					System.out.println(new String(data,0,data.length));
 				}
 				catch(SocketTimeoutException e){
 				} catch (IOException e) {
