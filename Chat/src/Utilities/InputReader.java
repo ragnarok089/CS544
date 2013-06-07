@@ -22,6 +22,7 @@ public class InputReader implements Runnable {
 	
 	public void stop(){
 		done=true;
+		sc.close();
 	}
 	
 	private synchronized String getSetReady(String newReady){
@@ -32,15 +33,17 @@ public class InputReader implements Runnable {
 	}
 	
 	public void run() {
-		while(!done){
-			if(sc.hasNextLine()){
-				getSetReady(sc.nextLine());
+		try{
+			while (!done) {
+				if (sc.hasNextLine()) {
+					getSetReady(sc.nextLine());
+				} else {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+					}
+				}
 			}
-			else{
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {}
-			}
-		}
+		} catch (IllegalStateException e) {}
 	}
 }
