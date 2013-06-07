@@ -50,7 +50,7 @@ public class MainLoop {
 			if(lastState==null || !state.state.getClass().equals(lastState.getClass())){
 				firstCall=true;
 				timeEnteredState=System.currentTimeMillis();
-				if(state.state instanceof Disconnected){
+				if(state.getState() instanceof Disconnected){
 					try {
 						tcp.close();
 					} catch (Exception e1) {}
