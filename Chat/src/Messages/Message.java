@@ -57,7 +57,7 @@ public class Message {
 		}
 		byte[] storage=new byte[numBytes];
 		for(int i=0;i<numBytes && i<Integer.toString(num).length();i++){
-			storage[i]=Byte.decode(numstr.substring(numstr.length()-8*(i+1),numstr.length()-8*i));	
+			storage[i]=Byte.parseByte(numstr.substring(numstr.length()-8*(i+1),numstr.length()-8*i),2);	
 		}
 		return storage;
 	}
