@@ -66,7 +66,6 @@ public class UDPReceiver  {
 			needsMore=false;
 			return parser.addBody(body);
 		}
-		needsMore=true;
 		return null;
 	}
 	

@@ -84,6 +84,7 @@ public class MainLoop {
 			}
 			lastState = state.getState();
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState);
+
 		}
 		ir.stop();
 		try {
