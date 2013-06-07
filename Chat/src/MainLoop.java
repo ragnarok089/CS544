@@ -85,6 +85,7 @@ public class MainLoop {
 				}
 				else{
 					System.out.println("I have a udp message");
+					System.out.println(udpMessage.getCorrect());
 				}
 			}
 			lastState = state.getState();
