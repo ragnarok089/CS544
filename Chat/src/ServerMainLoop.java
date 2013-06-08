@@ -79,7 +79,7 @@ public class ServerMainLoop {
 				tcp.socket = socket;
 				socket=null;
 				tcp.active = true;
-				tcp.tr.setSocket(socket);
+				tcp.tr.setSocket(tcp.socket);
 				t = new Thread(tcp.tr);
 				t.start();
 				s.setTCP(tcp);
