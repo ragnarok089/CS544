@@ -27,7 +27,7 @@ public class ServerMainLoop {
 				System.out.println("new thread");
 				ServerThread st=new ServerThread();
 				st.setTCP(tcp);
-				tcp.tr.stop();
+				tcp.stop();
 				(new Thread(st)).start();
 				tcp=new TCP();
 			}
