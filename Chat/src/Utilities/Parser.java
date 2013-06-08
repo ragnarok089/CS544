@@ -1,23 +1,37 @@
+/*	CS 544
+ * 	20130608
+ * 	Kyle P., Gabriel S., Mengchen Z., Sid L.
+ * 
+ * 	This class takes in bytes and returns messages
+ * 	since you cannot know how many bytes are required until
+ * 	you process the header it is done in two steps and the parser
+ * 	stores the state
+ */
 package Utilities;
 import Messages.*;
 
 
 public class Parser {
-	int op;
-	long length;
-	long reserved;
-	String options;
-	boolean needsMore=false;
-	public int parse(byte[] message){//returns the number of body bytes it needs
+	int op;//the op code
+	long length;//the length
+	long reserved;//te reserved field
+	String options;//the options field
+	boolean needsMore=false;//whether the header has already benn read
+	
+	//returns the number of body bytes it needs and populates the header internally
+	public int parse(byte[] message){
 		if(needsMore){
 			return -2;
 		}
+		//signal that the header has been processed
 		needsMore=true;
+		//pull out the header bytes
 		op=(int)fromByteArray(new byte[]{message[0]});
 		length=fromByteArray(new byte[]{message[1],message[2]});
 		reserved=fromByteArray(new byte[]{message[3]});
 		byte[] optArray=new byte[message.length-4];
 		options=new String(optArray,0,optArray.length);
+		//return the number of bytes needed based on op code
 		switch(op){
 			case 1: //udp broadcast
 				return (int) UDPBroadcastMessage.minSize;
@@ -52,8 +66,12 @@ public class Parser {
 				return -1;
 		}
 	}
+	
+	//this method adds the body to the message and returns the result
 	public Message addBody(byte[] body){
+		//reset the state
 		needsMore=false;
+		//returns the new message based on op code
 		switch(op){
 		case 1: //udp broadcast
 			return new UDPBroadcastMessage(op,length,reserved,options,body);
@@ -87,11 +105,21 @@ public class Parser {
 			return null;
 		}
 	}
-	protected long fromByteArray(byte[] bytes) {
-		long total=0;
-	    for(int i=0;i<bytes.length;i++){
-	    	total+=(long)bytes[i]*Math.pow(2, 8*i);
-	    }
-	    return total;
-	}
+	//this converts from a byte array to a long
+	//converts from a byte array to a number
+		protected long fromByteArray(byte[] bytes) {
+			long total = 0;
+			//for each byte
+			for (int i = 0; i < bytes.length; i++) {
+				//take the byte and calculate its value by multiplying by the appropriate power of 2
+				int store = (int) (Byte.valueOf(bytes[i]).intValue() * Math.pow(2,
+						8 * i));
+				//since byte wrap at 128, if it is negative subtract it from 127 to get the true value
+				if (store < 0) {
+					store = 127 - store;
+				}
+				total += store;
+			}
+			return total;
+		}
 }
