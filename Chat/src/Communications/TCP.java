@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import Messages.ErrorMessage;
 import Messages.Message;
 import Utilities.Parser;
 
@@ -155,7 +156,8 @@ public class TCP implements Runnable {
 				moreNeeded=parser.parse(current);
 				if(0>moreNeeded){
 					System.out.println("Parser Error");
-					System.exit(-1);
+					queue.clear();
+					return new ErrorMessage();
 				}
 				if(queue.size()>=moreNeeded){
 					body=new byte[moreNeeded];

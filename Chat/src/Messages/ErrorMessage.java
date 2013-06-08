@@ -9,5 +9,9 @@ public class ErrorMessage extends Message {
 			correct=false;
 		}
 	}
+	public ErrorMessage(){
+		super(13,Message.minSize,0,"");
+
+	}
 
 }

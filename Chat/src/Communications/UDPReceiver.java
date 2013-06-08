@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.SocketException;
 import java.util.concurrent.*;
 
+import Messages.ErrorMessage;
 import Messages.Message;
 import Utilities.Parser;
 
@@ -35,7 +36,8 @@ public class UDPReceiver  {
 				moreNeeded=parser.parse(current);
 				if(moreNeeded<0){
 					System.out.println("Parser Error");
-					System.exit(-1);
+					queue.clear();
+					return new ErrorMessage();
 				}
 				if(queue.size()>=moreNeeded){
 					body=new byte[moreNeeded];
