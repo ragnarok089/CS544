@@ -8,7 +8,7 @@ import Messages.Message;
 public class Chatting extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
-			System.out.println("You are can now chat with the other person");
+			System.out.println("You can now chat with the other person");
 		}
 		if(tcp.getActive()==false){
 			System.out.println("The other side disconnected");
