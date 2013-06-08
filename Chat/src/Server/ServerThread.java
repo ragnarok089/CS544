@@ -24,6 +24,13 @@ public class ServerThread implements Runnable{
 			if(lastState==null||state.getState().getClass()!=lastState.getClass()){
 				timeEnteredState=System.currentTimeMillis();
 			}
+			if(!tcp.getActive()){
+				try {
+					tcp.close();
+				} catch (Exception e) {}
+				done=true;
+				continue;
+			}
 			tcpMessage = tcp.read();
 			if (tcpMessage instanceof ErrorMessage && tcpMessage.getCorrect()) {
 				System.out.println("An error occured while communicating.\nDisconnecting");
