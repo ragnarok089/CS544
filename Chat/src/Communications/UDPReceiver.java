@@ -25,19 +25,6 @@ public class UDPReceiver  {
 		t=(new Thread(thread));
 		t.start();
 	}
-	
-//	public byte[] getPacket(){
-//		if(queue.size()<size){
-//			return new byte[0];
-//		}
-//		else{
-//			byte[] packet = new byte[size];
-//			for(int i=0;i<size;i++){
-//				packet[i]=queue.poll();
-//			}
-//		}
-//	}
-	
 	public Message read(){
 		if (!needsMore) {
 			if (queue.size() >= size) {
@@ -45,17 +32,16 @@ public class UDPReceiver  {
 				for (int i = 0; i < size; i++) {
 					current[i] = queue.poll();
 				}
-				System.out.println("Ate "+Integer.toString(size));
 				moreNeeded=parser.parse(current);
 				if(moreNeeded<0){
 					System.out.println("Parser Error");
+					System.exit(-1);
 				}
 				if(queue.size()>=moreNeeded){
 					body=new byte[moreNeeded];
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
 					}
-					System.out.println("Ate "+Integer.toString(moreNeeded));
 					needsMore=false;
 					moreNeeded=Integer.MAX_VALUE;
 					return parser.addBody(body);
@@ -67,7 +53,6 @@ public class UDPReceiver  {
 			}
 		}
 		else if(queue.size()>=moreNeeded){
-			System.out.println("getting second");
 			body=new byte[moreNeeded];
 			for (int i = 0; i < moreNeeded; i++) {
 				body[i] = queue.poll();

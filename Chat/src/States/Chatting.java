@@ -19,7 +19,6 @@ public class Chatting extends State{
 			return new Disconnected();
 		}
 		else if(!input.equals("")){
-			//System.out.println(input);
 			Message message=new ChatMsgMessage(11,Message.minSize+Message.minSize,0,"",input);
 			tcp.send(message);
 			return this;

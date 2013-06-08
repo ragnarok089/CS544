@@ -127,7 +127,6 @@ public class TCP implements Runnable {
 	}
 	 public int send(byte[] message) {
          try {
-        	 	System.out.println(new String(message,0,message.length));
                  OutputStream socketOutputStream = socket.getOutputStream();
                  socketOutputStream.write(message, 0, message.length);
          } catch (Exception e) {
@@ -137,8 +136,6 @@ public class TCP implements Runnable {
 	 }
 	 public int send(Message message) {
          try {
-        	 System.out.println(new String(message.convert(),0,message.convert().length));
-        	 System.out.println(message.getCorrect());
                  OutputStream socketOutputStream = socket.getOutputStream();
                  byte[] buffer=message.convert();
                  socketOutputStream.write(buffer, 0, buffer.length);
@@ -151,7 +148,6 @@ public class TCP implements Runnable {
 	public Message read(){
 		if (!needsMore) {
 			if (queue.size() >= size) {
-				System.out.println("Getting first");
 				current = new byte[size];
 				for (int i = 0; i < size; i++) {
 					current[i] = queue.poll();
@@ -159,9 +155,9 @@ public class TCP implements Runnable {
 				moreNeeded=parser.parse(current);
 				if(0>moreNeeded){
 					System.out.println("Parser Error");
+					System.exit(-1);
 				}
 				if(queue.size()>=moreNeeded){
-					System.out.println("second is already here");
 					body=new byte[moreNeeded];
 					for (int i = 0; i < moreNeeded; i++) {
 						body[i] = queue.poll();
@@ -177,7 +173,6 @@ public class TCP implements Runnable {
 			}
 		}
 		else if(queue.size()>=moreNeeded){
-			System.out.println("Getting second");
 			body=new byte[moreNeeded];
 			for (int i = 0; i < moreNeeded; i++) {
 				body[i] = queue.poll();
@@ -194,9 +189,7 @@ public class TCP implements Runnable {
 	}
 	
 	public void close() throws IOException{
-		System.out.println("Closing");
 		active=false;
-		//running=false;
 		tr.stop();
 		try {
 			t.join();

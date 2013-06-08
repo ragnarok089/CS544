@@ -17,13 +17,12 @@ public class ConnectedServer extends State {
 			catch(Exception e){}
 			return new Disconnected();
 			
-		} else if (input.startsWith(":update")) {
+		} else if (input.startsWith(":update ")) {
 			Message message=new ClientRequestUpdateMessage(6,ClientRequestUpdateMessage.minSize+Message.minSize,0,"",User.userName,tcp.getIP());
 			tcp.send(message);
 			return new ServerUpdate();
-		} else if (input.startsWith(":query")) {
+		} else if (input.startsWith(":query ")) {
 			Message message=new ClientRequestInfoMessage(8,ClientRequestInfoMessage.minSize+Message.minSize,0,"",User.userName,input.substring(7).trim(),tcp.getIP());
-			System.out.println(new String(message.convert(),0,message.convert().length));
 			System.out.println(tcp.send(message));
 			return new ServerQuery();
 		} else {

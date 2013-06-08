@@ -90,6 +90,9 @@ public class ServerMainLoop {
 			} catch (Exception e) {}
 		}
 		System.out.println("Hit enter to finish quitting");
+		try{
+			tcp.close();
+		}catch(Exception e){}
 		tcp.stop();
 		ir.stop();
 		System.out.println("If quitting does not occur please make sure there are no connections to the server");

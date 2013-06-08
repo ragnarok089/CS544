@@ -31,19 +31,16 @@ public class UDPSender {
 				break;
 			}
 		}
-		//broadcast=InetAddress.getByName("192.168.224.142");
 		if(broadcast==null){
-			throw new UnknownHostException("\rNo broadcast address");
+			throw new UnknownHostException("No broadcast address");
 		}
 		ip = broadcast;
-		System.out.println(broadcast.toString());
 	}
 	
 	public void sendMessage(Message message) throws IOException{
 		byte[] buffer=message.convert();
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length,ip,12346);
 		socket.send(packet);
-		System.out.println(new String(packet.getData(),0,packet.getLength()));
 	}
 	
 	public void close(){

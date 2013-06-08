@@ -11,27 +11,10 @@ public class UDPReceiverThread implements Runnable {
 		protected volatile boolean running;
 		
 		public UDPReceiverThread(ConcurrentLinkedQueue<Byte> queue) throws SocketException{
-			/*InetAddress broadcast = null;
-			Enumeration<NetworkInterface> interfaces =NetworkInterface.getNetworkInterfaces();
-			while (interfaces.hasMoreElements()) {
-				NetworkInterface networkInterface = interfaces.nextElement();
-				if (networkInterface.isLoopback())
-					continue;    // Don't want to broadcast to the loopback interface
-				for (InterfaceAddress interfaceAddress :
-					networkInterface.getInterfaceAddresses()) {
-					broadcast = interfaceAddress.getAddress();
-					if (!broadcast.toString().contains("192.168"))
-						continue;
-					break;
-				}
-				if(broadcast!=null || broadcast.toString().contains("192.168")){
-					break;
-				}
-			}*/
 			try {
 				socket = new DatagramSocket(12346,InetAddress.getByName("0.0.0.0"));
 			} catch (UnknownHostException e) {
-				System.out.println("\rFailed to create UDP receiver");
+				System.out.println("Failed to create UDP receiver");
 			}
 			socket.setSoTimeout(500);
 			out=queue;
@@ -53,8 +36,6 @@ public class UDPReceiverThread implements Runnable {
 					for(int i=0;i<packet.getLength();i++){
 						out.add(data[i]);
 					}
-					System.out.println("Got it");
-					System.out.println(new String(data,0,data.length));
 				}
 				catch(SocketTimeoutException e){
 				} catch (IOException e) {

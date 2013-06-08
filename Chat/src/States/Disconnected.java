@@ -21,7 +21,7 @@ public class Disconnected extends State {
 				return new ConnectedReceiver();
 			}
 		}
-		else if(input.startsWith(":ip")){
+		else if(input.startsWith(":ip ")){
 			if(input.length()<5){
 				System.out.println("An argument is required");
 				return this;
@@ -31,7 +31,7 @@ public class Disconnected extends State {
 			}
 			return this;
 		}
-		else if(input.startsWith(":host")){
+		else if(input.startsWith(":host ")){
 			if(input.length()<7){
 				System.out.println("An argument is required");
 				return this;
@@ -41,7 +41,7 @@ public class Disconnected extends State {
 			}
 			return this;
 		}
-		else if(input.startsWith(":local")){
+		else if(input.startsWith(":local ")){
 			if(input.length()<8){
 				System.out.println("An argument is required");
 				return this;
@@ -64,14 +64,9 @@ public class Disconnected extends State {
 			return this;
 		}
 		else if(udpMessage instanceof UDPBroadcastMessage && udpMessage.getCorrect()){
-				System.out.println("UDP message processed");
 				UDPBroadcastMessage m=(UDPBroadcastMessage)udpMessage;
-				System.out.println("\""+m.targetUsername+"\"");
-				System.out.println(m.targetUsername.length());
-				System.out.println("\""+User.userName+"\"");
-				System.out.println(User.userName.length());
 				if(m.targetUsername.trim().equals(User.userName.trim())){
-					System.out.println("\rReceived a broadcast with to your username from "+m.senderUsername+" at "+m.senderIP);
+					System.out.println("Received a broadcast with to your username from "+m.senderUsername+" at "+m.senderIP);
 					tcp.pendingIP=m.senderIP;
 					return new UserConfirmCallback();
 				}

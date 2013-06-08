@@ -12,11 +12,9 @@ public class ConnectedInitiator extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){
 			System.out.println("A connection has been established. Type :client if you are connected to a client and :server if its a server");
-			System.out.println(tcp.active);
-			System.out.println(tcp.socket.isClosed());
 		}
 		if(tcp.getActive()==false){
-			System.out.println("The otherside disconnceted");
+			System.out.println("The otherside disconnected");
 
 			try{
 				tcp.close();
@@ -24,12 +22,11 @@ public class ConnectedInitiator extends State{
 			catch(Exception e){}
 			return new Disconnected();
 		}
-		else if(input.startsWith(":server")){
+		else if(input.startsWith(":server ")){
 			tcp.send(new ServerHandShakeMessage(2,ServerHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeServer();
 		}
-		else if(input.startsWith(":client")){
-			System.out.println("Sending Client handshake message");
+		else if(input.startsWith(":client ")){
 			tcp.send(new ClientHandShakeMessage(3,ClientHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeClient();
 		}
