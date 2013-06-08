@@ -22,11 +22,11 @@ public class ConnectedInitiator extends State{
 			catch(Exception e){}
 			return new Disconnected();
 		}
-		else if(input.startsWith(":server ")){
+		else if(input.startsWith(":server")){
 			tcp.send(new ServerHandShakeMessage(2,ServerHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeServer();
 		}
-		else if(input.startsWith(":client ")){
+		else if(input.startsWith(":client")){
 			tcp.send(new ClientHandShakeMessage(3,ClientHandShakeMessage.minSize+Message.minSize,0,"",User.getUserName(),tcp.getIP()));
 			return new MidhandshakeClient();
 		}

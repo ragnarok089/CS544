@@ -17,7 +17,7 @@ public class ConnectedServer extends State {
 			catch(Exception e){}
 			return new Disconnected();
 			
-		} else if (input.startsWith(":update ")) {
+		} else if (input.startsWith(":update")) {
 			Message message=new ClientRequestUpdateMessage(6,ClientRequestUpdateMessage.minSize+Message.minSize,0,"",User.userName,tcp.getIP());
 			tcp.send(message);
 			return new ServerUpdate();
