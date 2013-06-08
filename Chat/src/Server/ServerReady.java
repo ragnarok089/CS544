@@ -48,7 +48,8 @@ public class ServerReady extends ServerState{
 			return this;
 		}
 		else if(tcpMessage!=null){
-			System.out.println("Invalid message");
+			System.out.println(tcpMessage.getCorrect());
+			System.out.println(tcpMessage.getClass());
 			tcp.send(new ErrorMessage(13,Message.minSize,0,"",new byte[0]));
 			try {
 				tcp.close();
