@@ -10,6 +10,7 @@ public class Waiting extends State{
 		if(firstCall){
 			System.out.println("Waiting for a response for at most 60 seconds. To cancel, type :dc");
 		}
+		System.out.println(System.currentTimeMillis()-timeEnteredState);
 		if(tcp.getActive()==true){
 			System.out.println("Connection established");
 			if(tcp.initiator){
