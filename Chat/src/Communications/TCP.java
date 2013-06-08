@@ -98,6 +98,9 @@ public class TCP implements Runnable {
 			}
 
 		}
+		try {
+			serverSocket.close();
+		} catch (IOException e) {}
 	}
 	
 	public void stop(){
