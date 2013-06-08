@@ -32,7 +32,7 @@ public class ConnectedReceiver extends State{
 		}
 		else if (tcpMessage instanceof ClientHandShakeMessage && tcpMessage.getCorrect()) {
 			ClientHandShakeMessage m=(ClientHandShakeMessage)tcpMessage;
-			System.out.println("Do you wish to talk to "+m.senderUsername+" at "+m.senderUsername);
+			System.out.println("Do you wish to talk to "+m.senderUsername+" at "+m.senderIP);
 			return new UserConfirmConnection();
 		} 
 		else if (tcpMessage instanceof ServerHandShakeMessage && tcpMessage.getCorrect()) {

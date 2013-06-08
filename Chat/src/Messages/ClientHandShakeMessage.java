@@ -2,7 +2,7 @@ package Messages;
 
 public class ClientHandShakeMessage extends Message {
 	public String senderUsername = null;
-	String senderIP = null;
+	public String senderIP = null;
 
 	public static final long minSize = 143;
 
