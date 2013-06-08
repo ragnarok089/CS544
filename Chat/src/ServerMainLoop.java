@@ -72,7 +72,7 @@ public class ServerMainLoop {
 			} catch (Exception e) {
 				skip = true;
 			}
-			if (!error) {
+			if (!skip) {
 				ServerThread s=new ServerThread();
 				tcp=new TCP();
 				tcp.initiator = false;
