@@ -26,8 +26,7 @@ public class ServerThread implements Runnable{
 			}
 			tcpMessage = tcp.read();
 			if (tcpMessage instanceof ErrorMessage && tcpMessage.getCorrect()) {
-				System.out
-						.println("\rAn error occured while communicating.\nDisconnecting");
+				System.out.println("\rAn error occured while communicating.\nDisconnecting");
 				try {
 					tcp.close();
 				} catch (IOException e) {

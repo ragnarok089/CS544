@@ -48,6 +48,7 @@ public class ServerReady extends ServerState{
 			return this;
 		}
 		else if(tcpMessage!=null){
+			System.out.println("Invalid message");
 			tcp.send(new ErrorMessage(13,Message.minSize,0,"",new byte[0]));
 			try {
 				tcp.close();
@@ -55,6 +56,7 @@ public class ServerReady extends ServerState{
 			return new ServerDisconnected();
 		}
 		else if(System.currentTimeMillis()-timeEnteredState>300000){
+			System.out.println("timout");
 			try {
 				tcp.close();
 			} catch (IOException e) {}
