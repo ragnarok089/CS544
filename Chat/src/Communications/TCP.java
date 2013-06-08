@@ -11,7 +11,7 @@ import Utilities.Parser;
 
 public class TCP implements Runnable {
 	public Socket socket=null;
-    TCPReceiverThread tr=null;
+    public TCPReceiverThread tr=null;
     Thread t=null;
     ConcurrentLinkedQueue<Byte> queue=new ConcurrentLinkedQueue<Byte>();
     public boolean active;
