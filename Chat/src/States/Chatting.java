@@ -24,7 +24,7 @@ public class Chatting extends State{
 			return this;
 		}
 		else if(tcpMessage instanceof ChatMsgMessage && tcpMessage.getCorrect()){
-			System.out.println("Your interlocutor says: "+((ChatMsgMessage)tcpMessage).messages);
+			System.out.println("Your interlocutor says: \""+((ChatMsgMessage)tcpMessage).messages+"\"");
 			return this;
 		}
 		else{
