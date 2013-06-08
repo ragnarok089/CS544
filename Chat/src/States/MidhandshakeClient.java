@@ -24,11 +24,18 @@ public class MidhandshakeClient extends State{
 		else if(tcpMessage instanceof ClientAcceptMessage && tcpMessage.getCorrect()){
 			return new Chatting();
 		}
-		else if((tcpMessage instanceof ServerAcceptMessage || tcpMessage instanceof DeclineConnectMessage) && tcpMessage.getCorrect()){
+		else if((tcpMessage instanceof ServerAcceptMessage) && tcpMessage.getCorrect()){
 			try {
 				tcp.close();
 			} catch (IOException e) {}
-			System.out.println("Expected a client response but got a server response");
+			System.out.println("Got a server accept Message from the client.\nDisconnecting");
+			return new Disconnected();
+		}
+		else if((tcpMessage instanceof DeclineConnectMessage) && tcpMessage.getCorrect()){
+			try {
+				tcp.close();
+			} catch (IOException e) {}
+			System.out.println("Other client declined to chat.\nDisconnecting");
 			return new Disconnected();
 		}
 		else{

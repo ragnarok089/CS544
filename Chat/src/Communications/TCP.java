@@ -200,7 +200,7 @@ public class TCP implements Runnable {
 		tr.stop();
 		try {
 			t.join();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 		}
 		queue.clear();
 		socket.close();

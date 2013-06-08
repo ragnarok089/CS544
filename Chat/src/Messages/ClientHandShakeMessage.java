@@ -45,7 +45,7 @@ public class ClientHandShakeMessage extends Message {
 			senderIPArray[i] = body[i + offset];
 		}
 		
-		senderIP = new String(senderUserArray, 0, senderUserArray.length);
+		senderIP = new String(senderIPArray, 0, senderIPArray.length);
 
 	}
 
