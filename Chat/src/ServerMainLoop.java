@@ -93,7 +93,9 @@ public class ServerMainLoop {
 		try{
 			tcp.close();
 		}catch(Exception e){}
-		tcp.stop();
+		try{
+			tcp.stop();
+		}catch(Exception e){}
 		ir.stop();
 		System.out.println("If quitting does not occur please make sure there are no connections to the server");
 	}
