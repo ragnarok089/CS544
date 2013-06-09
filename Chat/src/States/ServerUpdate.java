@@ -10,7 +10,7 @@ package States;
 import Communications.*;
 import Messages.*;
 
-
+//STATEFUL
 public class ServerUpdate extends State {
 	
 	//takes the input and returns the next state to be placed into

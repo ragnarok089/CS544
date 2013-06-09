@@ -11,7 +11,7 @@ package Server;
 
 import Communications.TCP;
 import Messages.Message;
-
+//STATEFUL
 public class ServerDisconnected extends ServerState{
 
 	//on any input return the next state of this thread

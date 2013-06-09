@@ -11,7 +11,7 @@ import States.*;
 
 
 
-
+//STATEFUL
 public class CurrentState {
 	public State state;//the state of the client
 	//initializes the state to disconnected

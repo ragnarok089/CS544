@@ -18,7 +18,7 @@ import Messages.ErrorMessage;
 import Messages.Message;
 import Messages.ServerAcceptMessage;
 
-
+//STATEFUL
 public class MidhandshakeClient extends State{
 	
 	//this takes the data and returns the next state the client should be in

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import Communications.TCP;
 import Messages.*;
-
+//STATEFUL
 public class ServerConnected extends ServerState{
 
 	//takes in a tcp, tcpMessage, and how long its been in this state and returns the next

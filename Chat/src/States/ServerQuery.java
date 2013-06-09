@@ -10,7 +10,7 @@ package States;
 import Communications.*;
 import Messages.*;
 
-
+//STATEFUL
 public class ServerQuery extends State{
 	//takes the input and returns the next state to be in
 	public State process(String input, TCP tcp, UDPSender us, Message udpMessage, Message tcpMessage, long timeEnteredState,boolean firstCall) {

@@ -18,6 +18,7 @@ public class UDPSender {
 	
 	public UDPSender() throws SocketException, UnknownHostException{
 		//setup the socket
+		//SERVICE
 		port =12345;
 		socket=new DatagramSocket(port);
 		socket.setBroadcast(true);
@@ -60,6 +61,7 @@ public class UDPSender {
 		//convert to byte[]
 		byte[] buffer=message.convert();
 		//construct the packet
+		//SERVICE
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length,ip,12346);
 		//send the packet
 		socket.send(packet);

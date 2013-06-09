@@ -9,7 +9,7 @@ package Server;
 
 import Communications.TCP;
 import Messages.Message;
-
+//STATEFUL
 public class ServerCurrentState {
 	public ServerState state;//the state the server thread is in
 	

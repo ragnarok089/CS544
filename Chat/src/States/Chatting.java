@@ -12,7 +12,7 @@ import Messages.ChatMsgMessage;
 import Messages.ErrorMessage;
 import Messages.Message;
 
-
+//STATEFUL
 public class Chatting extends State{
 	
 	//This method processes the input and returns the next state

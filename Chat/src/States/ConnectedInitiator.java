@@ -7,7 +7,7 @@ import Messages.ErrorMessage;
 import Messages.Message;
 import Messages.ServerHandShakeMessage;
 import Utilities.User;
-
+//STATEFUL
 public class ConnectedInitiator extends State{
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){
 		if(firstCall){

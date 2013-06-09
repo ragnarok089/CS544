@@ -14,7 +14,7 @@ import java.io.IOException;
 import Messages.ErrorMessage;
 import Messages.Message;
 import Communications.TCP;
-
+//CONCURRENT
 public class ServerThread implements Runnable{
 	TCP tcp=null;//the connection
 	
@@ -63,7 +63,9 @@ public class ServerThread implements Runnable{
 			//update the last state
 			lastState = state.getState();
 			//otherwise, give the data to the current state to get the next state
-			state.process(tcp, tcpMessage, timeEnteredState);
+			
+			//STATEFUL
+			state.process(tcp, tcpMessage, timeEnteredState); 
 		}
 	}
 }

@@ -18,7 +18,7 @@ import Messages.ErrorMessage;
 import Messages.Message;
 import Messages.ServerAcceptMessage;
 
-
+//STATEFUL
 public class MidhandshakeServer extends State{
 	//take in the input and return the next state to be in
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){

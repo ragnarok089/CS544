@@ -99,6 +99,7 @@ public class TCP implements Runnable {
 		boolean error = false;
 		try {
 			//tries to make a new server socket and if it can't it stops running
+			//SERVICE
 			serverSocket = new ServerSocket(12345, 0, ip);
 			serverSocket.setSoTimeout(500);
 		} catch (Exception e) {
@@ -159,6 +160,7 @@ public class TCP implements Runnable {
 				return -1;
 			}
 			//make the connection
+			//SERVICE
 			socket = new Socket(target, 12345);
 			//set up variables
 			initiator=true;

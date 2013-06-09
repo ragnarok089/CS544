@@ -73,7 +73,7 @@ public class MainLoop {
 			else{
 				firstCall=false;
 			}
-
+			//UI
 			input=ir.getSubmitted();//read from STDIN
 			//disconnect if command specified
 			if(input.startsWith(":dc")){
@@ -125,6 +125,8 @@ public class MainLoop {
 			//set lastState
 			lastState = state.getState();
 			//run the input through the current state (automatically changes to new state)
+			
+			//STATEFUL
 			state.process(input,tcp,us,udpMessage,tcpMessage,timeEnteredState,firstCall);
 
 		}

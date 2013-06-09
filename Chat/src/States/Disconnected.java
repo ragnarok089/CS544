@@ -15,7 +15,7 @@ import Communications.*;
 import Messages.*;
 import Utilities.*;
 
-
+//STATEFUL
 public class Disconnected extends State {
 	
 	//this function takes the current input and returns the next state the client should be in
@@ -35,6 +35,7 @@ public class Disconnected extends State {
 			}
 		}
 		//if you give an ip command
+		//CLIENT
 		else if(input.startsWith(":ip ")){
 			//if there was no argument
 			if(input.length()<5){
@@ -48,6 +49,7 @@ public class Disconnected extends State {
 			return this;
 		}
 		//if the host command was given do the same as ip but with a longer offset
+		//CLIENT
 		else if(input.startsWith(":host ")){
 			if(input.length()<7){
 				System.out.println("An argument is required");
@@ -59,6 +61,7 @@ public class Disconnected extends State {
 			return this;
 		}
 		//if the local command is given
+		//EC Extra Credit
 		else if(input.startsWith(":local ")){
 			//check to make sure it has the proper arugments
 			if(input.length()<8){

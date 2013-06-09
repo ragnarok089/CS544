@@ -71,6 +71,7 @@ public class ServerMainLoop {
 		if(!error){
 			try{
 				//if the ip was gotten correctly setup the serversocket
+				//SERVICE
 				serverSocket=new ServerSocket(12345, 0, ip);
 				//set the timeout to .5 sec
 				serverSocket.setSoTimeout(500);
@@ -88,6 +89,7 @@ public class ServerMainLoop {
 		//loop continues until its done or there's an error
 		while(!done && !error){
 			//read from stdin
+			//UI
 			String input=ir.getSubmitted();
 			//if the command is quit, quit
 			if(input.startsWith(":quit")){
@@ -105,6 +107,7 @@ public class ServerMainLoop {
 			}
 			//if it didnt' timeout
 			if (!skip) {
+				//CONCURRENT
 				//setup a new thread
 				ServerThread s=new ServerThread();
 				//setup the new TCP for the thread

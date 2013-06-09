@@ -11,7 +11,7 @@ package States;
 import Communications.*;
 import Messages.*;
 
-
+//STATEFUL
 public class Waiting extends State{
 	public static final long timeout=60000;//the length of time it waits before disconnecting
 	

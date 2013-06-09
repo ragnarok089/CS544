@@ -14,7 +14,7 @@ import Messages.ClientHandShakeMessage;
 import Messages.ErrorMessage;
 import Messages.Message;
 import Messages.ServerHandShakeMessage;
-
+//STATEFUL
 public class ConnectedReceiver extends State{
 	//this takes the input and returns the next state of the client
 	public State process(String input, TCP tcp, UDPSender us,Message udpMessage,Message tcpMessage,long timeEnteredState,boolean firstCall){

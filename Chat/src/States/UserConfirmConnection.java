@@ -14,7 +14,7 @@ import Messages.ClientAcceptMessage;
 import Messages.DeclineConnectMessage;
 import Messages.ErrorMessage;
 import Messages.Message;
-
+//STATEFUL
 public class UserConfirmConnection extends State{
 
 	//takes the input and returns the next state the user should be in

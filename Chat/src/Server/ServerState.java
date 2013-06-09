@@ -11,7 +11,7 @@ package Server;
 
 import Communications.TCP;
 import Messages.Message;
-
+//STATEFUL
 public abstract class ServerState {
 	public abstract ServerState process(TCP tcp, Message tcpMessage,long timeEnteredState);
 

@@ -20,7 +20,7 @@ import Messages.Message;
 import Messages.NameCollisionMessage;
 import Messages.ServerConfirmationUpdateMessage;
 import Messages.ServerSendsInfoMessage;
-
+//STATEFUL
 public class ServerReady extends ServerState{
 	//returns the next state the thread should be in
 	public ServerState process(TCP tcp, Message tcpMessage, long timeEnteredState) {

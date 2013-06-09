@@ -10,7 +10,7 @@ package States;
 import Communications.*;
 import Messages.*;
 import Utilities.User;
-
+//STATEFUL
 public class ConnectedServer extends State {
 	
 	//this takes the data and returns the proper next state

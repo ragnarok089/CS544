@@ -8,7 +8,7 @@
 package Utilities;
 import java.util.*;
 
-
+//UI
 public class InputReader implements Runnable {
 	Scanner sc;//the scanner 
 	String ready; //the last string collected

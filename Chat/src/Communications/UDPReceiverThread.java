@@ -19,6 +19,7 @@ public class UDPReceiverThread implements Runnable {
 		
 		public UDPReceiverThread(ConcurrentLinkedQueue<Byte> queue) throws SocketException{
 			try {
+				//SERVICE
 				socket = new DatagramSocket(12346,InetAddress.getByName("0.0.0.0"));//setup a socket listening for any UDP packets on that socket
 			} catch (UnknownHostException e) {
 				System.out.println("Failed to create UDP receiver");

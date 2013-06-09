@@ -11,7 +11,7 @@ package States;
 import Communications.TCP;
 import Communications.UDPSender;
 import Messages.Message;
-
+//STATEFUL
 public class UserConfirmCallback extends State{
 
 	//this takes some input and returns the next state the client should be in
